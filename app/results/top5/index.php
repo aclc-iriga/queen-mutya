@@ -219,7 +219,7 @@
     sort($tops_ordered);
 
     // shuffle $tops_unordered (deterministic)
-    mt_srand(615829437);
+    mt_srand(25143);
     shuffle($tops_unordered);
 ?>
 <!DOCTYPE html>
