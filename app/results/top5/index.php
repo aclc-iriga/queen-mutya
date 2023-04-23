@@ -1,4 +1,7 @@
 <?php
+    if(!defined('EVENT_SLUGS'))
+        exit();
+
     const LOGIN_PAGE_PATH = '../../crud/';
     require_once '../../crud/auth.php';
 
@@ -8,65 +11,68 @@
     require_once '../../models/Event.php';
 
     // initialize titles
-    $titles = ['1', '2', '3', '4', '5', '6', '7', '8'];
+    $titles = ['1', '2', '3', '4', '5'];
 
     // initialize admin
     $admin = new Admin();
 
     // initialize events
-    $event_production   = Event::findBySlug('production');
-    $event_swimwear     = Event::findBySlug('swimwear');
-    $event_advocacy     = Event::findBySlug('advocacy');
-    $event_evening_gown = Event::findBySlug('evening-gown');
+    $event1 = Event::findBySlug(EVENT_SLUGS[0]);
+    $event2 = Event::findBySlug(EVENT_SLUGS[1]);
+    $event3 = Event::findBySlug(EVENT_SLUGS[2]);
+    $event4 = Event::findBySlug(EVENT_SLUGS[3]);
+
+    // initialize category
+    $category_title = $event1->getCategory()->getTitle();
 
     // tabulate events
-    $result_production   = $admin->tabulate($event_production);
-    $result_swimwear     = $admin->tabulate($event_swimwear);
-    $result_advocacy     = $admin->tabulate($event_advocacy);
-    $result_evening_gown = $admin->tabulate($event_evening_gown);
+    $result1 = $admin->tabulate($event1);
+    $result2 = $admin->tabulate($event2);
+    $result3 = $admin->tabulate($event3);
+    $result4 = $admin->tabulate($event4);
 
     // process result
     $result = [];
     $unique_total_ranks    = [];
     $unique_adjusted_ranks = [];
-    foreach(Team::all() as $team) {
+    foreach($event1->getAllTeams() as $team) {
         $team_key = 'team_'.$team->getId();
 
-        // get production rank and average
-        $rank_production    = 0;
-        $average_production = 0;
-        if(isset($result_production['teams'][$team_key])) {
-            $rank_production    = $result_production['teams'][$team_key]['rank']['final']['fractional'];
-            $average_production = $result_production['teams'][$team_key]['ratings']['average'];
+        // get $event1 rank and average
+        $rank1    = 0;
+        $average1 = 0;
+        if(isset($result1['teams'][$team_key])) {
+            $rank1    = $result1['teams'][$team_key]['rank']['final']['fractional'];
+            $average1 = $result1['teams'][$team_key]['ratings']['average'];
         }
 
-        // get swimwear rank and average
-        $rank_swimwear    = 0;
-        $average_swimwear = 0;
-        if(isset($result_swimwear['teams'][$team_key])) {
-            $rank_swimwear    = $result_swimwear['teams'][$team_key]['rank']['final']['fractional'];
-            $average_swimwear = $result_swimwear['teams'][$team_key]['ratings']['average'];
+        // get $event2 rank and average
+        $rank2    = 0;
+        $average2 = 0;
+        if(isset($result2['teams'][$team_key])) {
+            $rank2    = $result2['teams'][$team_key]['rank']['final']['fractional'];
+            $average2 = $result2['teams'][$team_key]['ratings']['average'];
         }
 
-        // get advocacy rank and average
-        $rank_advocacy    = 0;
-        $average_advocacy = 0;
-        if(isset($result_advocacy['teams'][$team_key])) {
-            $rank_advocacy    = $result_advocacy['teams'][$team_key]['rank']['final']['fractional'];
-            $average_advocacy = $result_advocacy['teams'][$team_key]['ratings']['average'];
+        // get $event3 rank and average
+        $rank3    = 0;
+        $average3 = 0;
+        if(isset($result3['teams'][$team_key])) {
+            $rank3    = $result3['teams'][$team_key]['rank']['final']['fractional'];
+            $average3 = $result3['teams'][$team_key]['ratings']['average'];
         }
 
-        // get evening gown rank and average
-        $rank_evening_gown    = 0;
-        $average_evening_gown = 0;
-        if(isset($result_evening_gown['teams'][$team_key])) {
-            $rank_evening_gown    = $result_evening_gown['teams'][$team_key]['rank']['final']['fractional'];
-            $average_evening_gown = $result_evening_gown['teams'][$team_key]['ratings']['average'];
+        // get $event4 rank and average
+        $rank4    = 0;
+        $average4 = 0;
+        if(isset($result4['teams'][$team_key])) {
+            $rank4    = $result4['teams'][$team_key]['rank']['final']['fractional'];
+            $average4 = $result4['teams'][$team_key]['ratings']['average'];
         }
 
         // get total rank and average
-        $total_rank    = $rank_production + $rank_swimwear + $rank_advocacy + $rank_evening_gown;
-        $total_average = ($average_production + $average_swimwear + $average_advocacy + $average_evening_gown) / 4;
+        $total_rank    = $rank1 + $rank2 + $rank3 + $rank4;
+        $total_average = ($average1 + $average2 + $average3 + $average4) / sizeof(EVENT_SLUGS);
 
         // push $total_rank to $unique_total_ranks
         if(!in_array($total_rank, $unique_total_ranks))
@@ -76,21 +82,21 @@
         $result[$team_key] = [
             'info'   => $team->toArray(),
             'inputs' => [
-                'production' => [
-                    'rank'    => $rank_production,
-                    'average' => $average_production
+                EVENT_SLUGS[0] => [
+                    'rank'    => $rank1,
+                    'average' => $average1
                 ],
-                'swimwear' => [
-                    'rank'    => $rank_swimwear,
-                    'average' => $average_swimwear
+                EVENT_SLUGS[1] => [
+                    'rank'    => $rank2,
+                    'average' => $average2
                 ],
-                'advocacy' => [
-                    'rank'    => $rank_advocacy,
-                    'average' => $average_advocacy
+                EVENT_SLUGS[2] => [
+                    'rank'    => $rank3,
+                    'average' => $average3
                 ],
-                'evening_gown' => [
-                    'rank'    => $rank_evening_gown,
-                    'average' => $average_evening_gown
+                EVENT_SLUGS[3] => [
+                    'rank'    => $rank4,
+                    'average' => $average4
                 ]
             ],
             'average' => $total_average,
@@ -240,7 +246,7 @@
             border-left: 2px solid #aaa !important;
         }
     </style>
-    <title>Top <?= sizeof($titles) ?></title>
+    <title>Top <?= sizeof($titles) ?> | <?= $category_title ?></title>
 </head>
 <body>
     <table class="table table-bordered result">
@@ -248,19 +254,19 @@
             <tr class="table-secondary">
                 <th colspan="3" rowspan="2" class="text-center bt br bl">
                     <h1 class="m-0">TOP <?= sizeof($titles) ?></h1>
-                    <h5>BINIBINING SAN VICENTE 2023</h5>
+                    <h5><?= $category_title ?></h5>
                 </th>
-                <th colspan="2" class="text-center text-success bt br">
-                    PRODUCTION
+                <th colspan="2" class="text-center text-success bt br" style="width: 11%">
+                    <?= $event1->getTitle() ?>
                 </th>
-                <th colspan="2" class="text-center text-success bt br">
-                    SWIMWEAR
+                <th colspan="2" class="text-center text-success bt br" style="width: 11%">
+                    <?= $event2->getTitle() ?>
                 </th>
-                <th colspan="2" class="text-center text-success bt br">
-                    ADVOCACY
+                <th colspan="2" class="text-center text-success bt br" style="width: 11%">
+                    <?= $event3->getTitle() ?>
                 </th>
-                <th colspan="2" class="text-center text-success bt br">
-                    EVENING<br>GOWN
+                <th colspan="2" class="text-center text-success bt br" style="width: 11%">
+                    <?= $event4->getTitle() ?>
                 </th>
                 <th rowspan="2" class="text-center bl bt br">
                     <span class="opacity-75">GENERAL<br>AVERAGE</span>
@@ -319,44 +325,44 @@
                     <small class="m-0"><?= $team['info']['location'] ?></small>
                 </td>
 
-                <!-- production -->
+                <!-- event1 -->
                 <td class="pe-3 bl" align="right">
                     <span class="opacity-75">
-                        <?= number_format($team['inputs']['production']['average'], 2) ?>
+                        <?= number_format($team['inputs'][EVENT_SLUGS[0]]['average'], 2) ?>
                     </span>
                 </td>
                 <td class="pe-3 text-primary br" align="right">
-                    <?= number_format($team['inputs']['production']['rank'], 2) ?>
+                    <?= number_format($team['inputs'][EVENT_SLUGS[0]]['rank'], 2) ?>
                 </td>
 
-                <!-- swimwear -->
+                <!-- event2 -->
                 <td class="pe-3 bl" align="right">
                     <span class="opacity-75">
-                        <?= number_format($team['inputs']['swimwear']['average'], 2) ?>
+                        <?= number_format($team['inputs'][EVENT_SLUGS[1]]['average'], 2) ?>
                     </span>
                 </td>
                 <td class="pe-3 text-primary br" align="right">
-                    <?= number_format($team['inputs']['swimwear']['rank'], 2) ?>
+                    <?= number_format($team['inputs'][EVENT_SLUGS[1]]['rank'], 2) ?>
                 </td>
 
-                <!-- advocacy -->
+                <!-- event3 -->
                 <td class="pe-3 bl" align="right">
                     <span class="opacity-75">
-                        <?= number_format($team['inputs']['advocacy']['average'], 2) ?>
+                        <?= number_format($team['inputs'][EVENT_SLUGS[2]]['average'], 2) ?>
                     </span>
                 </td>
                 <td class="pe-3 text-primary br" align="right">
-                    <?= number_format($team['inputs']['advocacy']['rank'], 2) ?>
+                    <?= number_format($team['inputs'][EVENT_SLUGS[2]]['rank'], 2) ?>
                 </td>
 
-                <!-- evening_gown -->
+                <!-- event4 -->
                 <td class="pe-3 bl" align="right">
                     <span class="opacity-75">
-                        <?= number_format($team['inputs']['evening_gown']['average'], 2) ?>
+                        <?= number_format($team['inputs'][EVENT_SLUGS[3]]['average'], 2) ?>
                     </span>
                 </td>
                 <td class="pe-3 text-primary br" align="right">
-                    <?= number_format($team['inputs']['evening_gown']['rank'], 2) ?>
+                    <?= number_format($team['inputs'][EVENT_SLUGS[3]]['rank'], 2) ?>
                 </td>
 
                 <!-- general average -->
@@ -393,7 +399,7 @@
     <!-- Judges -->
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <?php foreach($event_production->getAllJudges() as $judge) { ?>
+            <?php foreach($event1->getAllJudges() as $judge) { ?>
                 <div class="col-md-4">
                     <div class="mt-5 pt-3 text-center">
                         <h6 class="mb-0"><?= $judge->getName() ?></h6>
@@ -401,7 +407,7 @@
                     <div class="text-center">
                         <p class="mb-0">
                             Judge <?= $judge->getNumber() ?>
-                            <?php if($judge->isChairmanOfEvent($event_production)) { ?>
+                            <?php if($judge->isChairmanOfEvent($event1)) { ?>
                                 * (Chairman)
                             <?php } ?>
                         </p>
@@ -416,6 +422,7 @@
         <div class="row">
             <!-- unordered -->
             <div class="col-md-6" align="center">
+                <h4 class="opacity-75"><?= $category_title ?></h4>
                 <h1>TOP <?= sizeof($titles) ?> in Random Order</h1>
                 <h4>FOR ANNOUNCEMENT</h4>
                 <div style="width: 80%;">
@@ -456,6 +463,7 @@
 
             <!-- ordered -->
             <div class="col-md-6" align="center">
+                <h4 class="opacity-75"><?= $category_title ?></h4>
                 <h1>TOP <?= sizeof($titles) ?> in Proper Order</h1>
                 <h4>FOR FINAL Q & A</h4>
                 <div style="width: 80%;">
