@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2023 at 12:44 PM
+-- Generation Time: Apr 24, 2023 at 03:41 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -45,7 +45,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `number`, `name`, `avatar`, `username`, `password`, `called_at`, `pinged_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 'DEVELOPMENT', 'no-avatar.jpg', 'admin', 'admin', NULL, '2023-04-23 08:41:05', '2023-02-19 07:36:32', '2023-04-23 08:41:05');
+(1, 1, 'DEVELOPMENT', 'no-avatar.jpg', 'admin', 'admin', NULL, '2023-04-24 01:28:14', '2023-02-19 07:36:32', '2023-04-24 01:28:14');
 
 -- --------------------------------------------------------
 
@@ -183,6 +183,33 @@ CREATE TABLE `deductions` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `duos`
+--
+
+CREATE TABLE `duos` (
+  `id` smallint(5) UNSIGNED NOT NULL,
+  `slug` varchar(32) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `event_id_1` smallint(5) UNSIGNED NOT NULL,
+  `event_id_2` smallint(5) UNSIGNED NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `duos`
+--
+
+INSERT INTO `duos` (`id`, `slug`, `title`, `event_id_1`, `event_id_2`, `created_at`, `updated_at`) VALUES
+(1, 'production', 'PRODUCTION', 1, 6, '2023-04-24 01:29:03', '2023-04-24 01:29:03'),
+(2, 'swimwear', 'SWIMWEAR', 2, 7, '2023-04-24 01:29:37', '2023-04-24 01:29:37'),
+(3, 'formal-wear-long-gown', 'FORMAL WEAR & LONG GOWN', 3, 8, '2023-04-24 01:30:43', '2023-04-24 01:30:43'),
+(4, 'preliminary-qa', 'PRELIMINARY Q & A', 4, 9, '2023-04-24 01:31:18', '2023-04-24 01:31:18'),
+(5, 'final-qa', 'FINAL Q & A', 5, 10, '2023-04-24 01:31:44', '2023-04-24 01:31:44');
 
 -- --------------------------------------------------------
 
@@ -747,6 +774,14 @@ ALTER TABLE `deductions`
   ADD KEY `event_id` (`event_id`);
 
 --
+-- Indexes for table `duos`
+--
+ALTER TABLE `duos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `event1` (`event_id_1`),
+  ADD KEY `event2` (`event_id_2`);
+
+--
 -- Indexes for table `eliminations`
 --
 ALTER TABLE `eliminations`
@@ -875,6 +910,12 @@ ALTER TABLE `deductions`
   MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `duos`
+--
+ALTER TABLE `duos`
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `eliminations`
 --
 ALTER TABLE `eliminations`
@@ -976,6 +1017,13 @@ ALTER TABLE `deductions`
   ADD CONSTRAINT `deductions_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `deductions_ibfk_2` FOREIGN KEY (`team_id`) REFERENCES `teams` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `deductions_ibfk_3` FOREIGN KEY (`technical_id`) REFERENCES `technicals` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `duos`
+--
+ALTER TABLE `duos`
+  ADD CONSTRAINT `duos_ibfk_1` FOREIGN KEY (`event_id_1`) REFERENCES `events` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `duos_ibfk_2` FOREIGN KEY (`event_id_2`) REFERENCES `events` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `eliminations`
