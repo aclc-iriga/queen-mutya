@@ -5,23 +5,17 @@
 		:permanent="$vuetify.display.lgAndUp"
 	>
         <v-list class="pa-0">
-            <template v-for="(group, groupIndex) in $store.getters['events/getCategorizedEvents']">
-                <v-list-subheader class="mt-2 text-subtitle-1">
-                    {{ group.category.title }}
-                </v-list-subheader>
-                <v-list-item
-                    v-for="event in group.events"
-                    :key="event.id"
-                    :variant="$route.params.eventSlug === event.slug ? 'tonal' : 'text'"
-					class="text-center"
-                    :class="`justify-center text-center text-button${$route.params.eventSlug === event.slug ? ' text-yellow' : ''}`"
-                    block
-                    @click="handleEventChange(event)"
-                >
-                    {{ event.title }}
-                </v-list-item>
-                <v-divider v-if="groupIndex < ($store.getters['events/getCategorizedEvents'].length - 1)" class="mt-2"/>
-            </template>
+            <v-list-item
+                v-for="duo in $store.getters['events/getAssignedDuos']"
+                :key="duo.id"
+                :variant="$route.params.duoSlug === duo.slug ? 'tonal' : 'text'"
+                class="text-center"
+                :class="`justify-center text-center text-button${$route.params.duoSlug === duo.slug ? ' text-yellow' : ''}`"
+                block
+                @click="handleDuoChange(duo)"
+            >
+                {{ duo.title }}
+            </v-list-item>
         </v-list>
 		<template v-slot:append>
 			<v-col class="text-center mt-4" cols="12">
@@ -43,12 +37,12 @@
             }
         },
         methods: {
-            handleEventChange(event) {
-                localStorage.setItem('active-event', event.slug);
+            handleDuoChange(duo) {
+                localStorage.setItem('active-duo', duo.slug);
                 this.$router.push({
                     name: this.$store.getters['auth/getUser'].userType,
                     params: {
-                        eventSlug: event.slug
+                        duoSlug: duo.slug
                     }
                 });
 
@@ -74,20 +68,20 @@
                 },
                 success: (data) => {
                     data = JSON.parse(data);
-                    this.$store.commit('events/setCategories', data.categories);
+                    this.$store.commit('events/setDuos', data.duos);
                     this.$store.commit('events/setEvents', data.events);
-                    const activeEvent = localStorage.getItem('active-event');
-                    if(activeEvent !== undefined) {
-                        const event = data.events.find(event => event.slug === activeEvent);
-                        if(event)
-                            this.handleEventChange(event);
+                    const activeDuo = localStorage.getItem('active-duo');
+                    if(activeDuo !== undefined) {
+                        const duo = data.duos.find(duo => duo.slug === activeDuo);
+                        if(duo)
+                            this.handleDuoChange(duo);
                     }
                 },
                 error: (error) => {
                     alert(`ERROR ${error.status}: ${error.statusText}`);
                 },
             });
-        },
+        }
     }
 </script>
 

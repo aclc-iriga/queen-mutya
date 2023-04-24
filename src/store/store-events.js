@@ -2,44 +2,54 @@ export default {
     namespaced: true,
 
     state: {
-        categories: [],
+        duos  : [],
         events: []
     },
 
     getters: {
-        getCategories(state) {
-            return state.categories;
+        getDuos(state) {
+            return state.duos;
         },
         getEvents(state) {
             return state.events;
         },
-        getCategorizedEvents(state) {
-            const categories = [];
-            for (let i = 0; i < state.categories.length; i++) {
-                const category = state.categories[i];
+        getAssignedDuos(state) {
+            const duos = [];
+            for(let i=0; i<state.duos.length; i++) {
+                const duo = state.duos[i];
 
-                // scan category Events
-                const categoryEvents = [];
-                for (let j = 0; j < state.events.length; j++) {
+                // get slug of event1
+                let eventSlug1 = null;
+                for(let j=0; j<state.events.length; j++) {
                     const event = state.events[j];
-                    if (event.category_id === category.id)
-                        categoryEvents.push(event);
+                    if(event.id === duo.event_id_1) {
+                        eventSlug1 = event.slug;
+                        break;
+                    }
                 }
 
-                // push to categories
-                if (categoryEvents.length > 0) {
-                    categories.push({
-                        category,
-                        events: categoryEvents
-                    });
+                // get slug of event2
+                let eventSlug2 = null;
+                for(let j=0; j<state.events.length; j++) {
+                    const event = state.events[j];
+                    if(event.id === duo.event_id_2) {
+                        eventSlug2 = event.slug;
+                        break;
+                    }
+                }
+
+                // push to duos
+                if(eventSlug1 || eventSlug2) {
+                    duo.eventSlugs = [eventSlug1, eventSlug2];
+                    duos.push(duo);
                 }
             }
-            return categories;
+            return duos;
         }
     },
     mutations: {
-        setCategories(state, payload) {
-            state.categories = payload;
+        setDuos(state, payload) {
+            state.duos = payload;
         },
         setEvents(state, payload) {
             state.events = payload;

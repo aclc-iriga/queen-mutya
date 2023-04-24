@@ -20,12 +20,12 @@ else {
     else {
         // get events
         if(isset($_GET['getEvents'])) {
-            require_once 'models/Category.php';
+            require_once 'models/Duo.php';
             require_once 'models/Event.php';
 
             echo json_encode([
-                'categories' => Category::rows(),
-                'events'     => Event::rows()
+                'duos'   => Duo::rows(),
+                'events' => Event::rows()
             ]);
         }
 

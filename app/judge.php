@@ -39,11 +39,11 @@ else {
 
         // get events assigned to judge
         else if(isset($_GET['getEvents'])) {
-            require_once 'models/Category.php';
+            require_once 'models/Duo.php';
 
             echo json_encode([
-                'categories' => Category::rows(),
-                'events'     => $judge->getRowEvents()
+                'duos'   => Duo::rows(),
+                'events' => $judge->getRowEvents()
             ]);
         }
 
