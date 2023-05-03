@@ -317,11 +317,11 @@
                 </td>
 
                 <!-- avatar -->
-                <td style="width: 72px;">
+                <td style="width: 64px;" align="center">
                     <img
                         src="../../crud/uploads/<?= $team['info']['avatar'] ?>"
                         alt="<?= $team['info']['number'] ?>"
-                        style="width: 100%; border-radius: 100%"
+                        style="width: 64px; border-radius: 100%"
                     >
                 </td>
 
