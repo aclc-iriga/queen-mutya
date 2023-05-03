@@ -1,16 +1,16 @@
 <template>
 	<top-nav/>
 
-	<side-nav/>
+	<side-nav v-if="$vuetify.display.mdAndDown"/>
 
 	<v-main v-if="$store.getters['auth/getUser'] !== null">
         <v-row>
-            <v-col cols="12" lg="6">
+            <v-col cols="12" lg="6" class="pr-lg-6">
                 <template v-if="eventSlugs[0]">
                     <technical-deduction :event-slug="eventSlugs[0]"/>
                 </template>
             </v-col>
-            <v-col cols="12" lg="6">
+            <v-col cols="12" lg="6" class="pr-lg-6">
                 <template v-if="eventSlugs[1]">
                     <technical-deduction :event-slug="eventSlugs[1]"/>
                 </template>

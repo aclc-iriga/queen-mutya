@@ -1,17 +1,17 @@
 <template>
 	<top-nav/>
 
-	<side-nav/>
+	<side-nav v-if="$vuetify.display.mdAndDown"/>
 
     <v-main v-if="$store.getters['auth/getUser'] !== null">
         <template v-if="duoSlug && results">
             <v-row>
-                <v-col cols="12" lg="6">
+                <v-col cols="12" lg="6" class="pr-lg-6">
                     <template v-if="results.event_1">
                         <admin-result :event="results.event_1" :result="results.result_1"/>
                     </template>
                 </v-col>
-                <v-col cols="12" lg="6">
+                <v-col cols="12" lg="6" class="pr-lg-6">
                     <template v-if="results.event_2">
                         <admin-result :event="results.event_2" :result="results.result_2"/>
                     </template>
