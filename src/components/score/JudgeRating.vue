@@ -23,7 +23,7 @@
                 >
                     <div class="d-flex h-100 flex-column align-content-space-between">
                         <p class="text-grey-darken-2" :class="$vuetify.display.mdAndDown ? 'text-subtitle-1' : ''">{{ criterion.title }}</p>
-                        <b class="text-grey-darken-4" :class="$vuetify.display.mdAndDown ? 'text-subtitle-2 font-weight-bold' : ''" style="margin-top: auto">{{ criterion.percentage }}%</b>
+                        <b class="text-grey-darken-4 font-weight-bold" :class="$vuetify.display.mdAndDown ? 'text-subtitle-2' : 'text-h6'" style="margin-top: auto">{{ criterion.percentage }}%</b>
                     </div>
                 </th>
                 <th
@@ -48,7 +48,7 @@
                 :key="team.id"
                 :class="{ 'bg-grey-lighten-4': coordinates.y == teamIndex && !scoreSheetDisabled }"
             >
-                <td class="text-uppercase text-right text-h5 font-weight-bold text-grey-darken-4">
+                <td class="text-uppercase text-right text-h4 font-weight-bold text-grey-darken-4">
                     {{ team.number }}
                 </td>
                 <td style="width: 72px;">
@@ -143,7 +143,7 @@
                         @focus.passive="updateCoordinates(criteria.length, teamIndex)"
                     />
                 </td>
-                <td class="text-center">{{ ranks[`team_${team.id}`].toFixed(2) }}</td>
+                <td class="text-center text-h6">{{ ranks[`team_${team.id}`].toFixed(2) }}</td>
             </tr>
         </tbody>
         <tfoot>

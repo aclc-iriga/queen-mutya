@@ -31,7 +31,7 @@
                 :class="{ 'bg-grey-lighten-4': coordinates.y == teamIndex }"
             >
                 <td
-                    class="text-uppercase text-center text-h5 text-grey-darken-4 font-weight-bold"
+                    class="text-uppercase text-center text-h4 text-grey-darken-4 font-weight-bold"
                     style="width: 0.2rem;"
                 >
                     {{ team.number }}
