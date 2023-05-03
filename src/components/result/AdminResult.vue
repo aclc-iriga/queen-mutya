@@ -105,13 +105,13 @@
                     </div>
                 </th>
                 <th class="text-center text-uppercase font-weight-bold text-green-darken-4 py-3">
-                    Total<br>Average
+                    Total<br>Avg.
                 </th>
                 <th class="text-center text-uppercase font-weight-bold text-blue-darken-4 py-3">
                     Rank<br>Total
                 </th>
                 <th class="text-center text-uppercase font-weight-bold text-blue-darken-3 py-3">
-                    Rank<br>Average
+                    Rank<br>Avg.
                 </th>
                 <th class="text-center text-uppercase font-weight-bold text-grey-darken-1 py-3">
                     Initial<br>Rank
