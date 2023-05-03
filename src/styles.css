@@ -174,3 +174,10 @@ html::-webkit-scrollbar {
         height: 30rem;
     }
 }
+
+
+@media only screen and (max-width: 1280px)  {
+    html {
+        overflow-y: auto;
+    }
+}
