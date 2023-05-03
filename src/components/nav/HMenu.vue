@@ -4,13 +4,14 @@
         :key="duo.id"
         :variant="$route.params.duoSlug === duo.slug ? 'tonal' : 'text'"
         class="text-center"
-        :class="`justify-center text-center text-button${$route.params.duoSlug === duo.slug ? ' text-yellow' : ''}`"
+        :class="`justify-center text-center mx-2 text-button${$route.params.duoSlug === duo.slug ? ' text-yellow' : ''}`"
         @click="handleDuoChange(duo)"
         size="small"
+        style="font-size: 1rem !important;"
     >
         {{ duo.title }}
     </v-btn>
-    <v-btn variant="tonal" @click="refresh" :loading="refreshing" size="small" icon class="mx-3">
+    <v-btn variant="tonal" @click="refresh" :loading="refreshing" size="small" icon class="mx-3" style="font-size: 1rem !important;">
         <v-icon icon="mdi-refresh"/>
     </v-btn>
 </template>
