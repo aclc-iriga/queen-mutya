@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 24, 2023 at 03:41 AM
+-- Generation Time: May 03, 2023 at 08:11 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -347,16 +347,16 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`id`, `category_id`, `slug`, `title`, `created_at`, `updated_at`) VALUES
-(1, 1, 'production-1', 'PRODUCTION (MALE)', '2023-04-23 09:27:10', '2023-04-23 09:55:39'),
-(2, 1, 'swimwear-1', 'SWIMWEAR (MALE)', '2023-04-23 09:28:36', '2023-04-23 09:55:45'),
-(3, 1, 'formal-wear', 'FORMAL WEAR', '2023-04-23 09:29:12', '2023-04-23 10:09:01'),
-(4, 1, 'preliminary-qa-1', 'PRELIMINARY Q & A (MALE)', '2023-04-23 09:29:44', '2023-04-23 09:55:58'),
-(5, 1, 'final-qa-1', 'FINAL Q & A (MALE)', '2023-04-23 09:30:11', '2023-04-23 09:56:05'),
-(6, 2, 'production-2', 'PRODUCTION (FEMALE)', '2023-04-23 10:08:26', '2023-04-23 10:08:26'),
-(7, 2, 'swimwear-2', 'SWIMWEAR (FEMALE)', '2023-04-23 10:08:43', '2023-04-23 10:08:43'),
-(8, 2, 'long-gown', 'LONG GOWN', '2023-04-23 10:09:14', '2023-04-23 10:09:14'),
-(9, 2, 'preliminary-qa-2', 'PRELIMINARY Q & A (FEMALE)', '2023-04-23 10:09:48', '2023-04-23 10:09:48'),
-(10, 2, 'final-qa-2', 'FINAL Q & A (FEMALE)', '2023-04-23 10:10:04', '2023-04-23 10:10:04');
+(1, 1, 'production-1', '(M) PRODUCTION', '2023-04-23 09:27:10', '2023-05-03 06:09:03'),
+(2, 1, 'swimwear-1', '(M) SWIMWEAR', '2023-04-23 09:28:36', '2023-05-03 06:09:13'),
+(3, 1, 'formal-wear', '(M) FORMAL WEAR', '2023-04-23 09:29:12', '2023-05-03 06:09:41'),
+(4, 1, 'preliminary-qa-1', '(M) PRELIMINARY Q & A', '2023-04-23 09:29:44', '2023-05-03 06:09:24'),
+(5, 1, 'final-qa-1', '(M) FINAL Q & A', '2023-04-23 09:30:11', '2023-05-03 06:09:33'),
+(6, 2, 'production-2', '(F) PRODUCTION', '2023-04-23 10:08:26', '2023-05-03 06:09:52'),
+(7, 2, 'swimwear-2', '(F) SWIMWEAR', '2023-04-23 10:08:43', '2023-05-03 06:10:12'),
+(8, 2, 'long-gown', '(F) LONG GOWN', '2023-04-23 10:09:14', '2023-05-03 06:10:19'),
+(9, 2, 'preliminary-qa-2', '(F) PRELIMINARY Q & A', '2023-04-23 10:09:48', '2023-05-03 06:10:28'),
+(10, 2, 'final-qa-2', '(F) FINAL Q & A', '2023-04-23 10:10:04', '2023-05-03 06:10:37');
 
 -- --------------------------------------------------------
 
