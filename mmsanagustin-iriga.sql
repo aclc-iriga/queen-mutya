@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2023 at 12:44 PM
+-- Generation Time: May 03, 2023 at 08:11 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -45,7 +45,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `number`, `name`, `avatar`, `username`, `password`, `called_at`, `pinged_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 'DEVELOPMENT', 'no-avatar.jpg', 'admin', 'admin', NULL, '2023-04-23 08:41:05', '2023-02-19 07:36:32', '2023-04-23 08:41:05');
+(1, 1, 'DEVELOPMENT', 'no-avatar.jpg', 'admin', 'admin', NULL, '2023-04-24 01:28:14', '2023-02-19 07:36:32', '2023-04-24 01:28:14');
 
 -- --------------------------------------------------------
 
@@ -187,6 +187,33 @@ CREATE TABLE `deductions` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `duos`
+--
+
+CREATE TABLE `duos` (
+  `id` smallint(5) UNSIGNED NOT NULL,
+  `slug` varchar(32) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `event_id_1` smallint(5) UNSIGNED NOT NULL,
+  `event_id_2` smallint(5) UNSIGNED NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `duos`
+--
+
+INSERT INTO `duos` (`id`, `slug`, `title`, `event_id_1`, `event_id_2`, `created_at`, `updated_at`) VALUES
+(1, 'production', 'PRODUCTION', 1, 6, '2023-04-24 01:29:03', '2023-04-24 01:29:03'),
+(2, 'swimwear', 'SWIMWEAR', 2, 7, '2023-04-24 01:29:37', '2023-04-24 01:29:37'),
+(3, 'formal-wear-long-gown', 'FORMAL WEAR & LONG GOWN', 3, 8, '2023-04-24 01:30:43', '2023-04-24 01:30:43'),
+(4, 'preliminary-qa', 'PRELIMINARY Q & A', 4, 9, '2023-04-24 01:31:18', '2023-04-24 01:31:18'),
+(5, 'final-qa', 'FINAL Q & A', 5, 10, '2023-04-24 01:31:44', '2023-04-24 01:31:44');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `eliminations`
 --
 
@@ -320,16 +347,16 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`id`, `category_id`, `slug`, `title`, `created_at`, `updated_at`) VALUES
-(1, 1, 'production-1', 'PRODUCTION (MALE)', '2023-04-23 09:27:10', '2023-04-23 09:55:39'),
-(2, 1, 'swimwear-1', 'SWIMWEAR (MALE)', '2023-04-23 09:28:36', '2023-04-23 09:55:45'),
-(3, 1, 'formal-wear', 'FORMAL WEAR', '2023-04-23 09:29:12', '2023-04-23 10:09:01'),
-(4, 1, 'preliminary-qa-1', 'PRELIMINARY Q & A (MALE)', '2023-04-23 09:29:44', '2023-04-23 09:55:58'),
-(5, 1, 'final-qa-1', 'FINAL Q & A (MALE)', '2023-04-23 09:30:11', '2023-04-23 09:56:05'),
-(6, 2, 'production-2', 'PRODUCTION (FEMALE)', '2023-04-23 10:08:26', '2023-04-23 10:08:26'),
-(7, 2, 'swimwear-2', 'SWIMWEAR (FEMALE)', '2023-04-23 10:08:43', '2023-04-23 10:08:43'),
-(8, 2, 'long-gown', 'LONG GOWN', '2023-04-23 10:09:14', '2023-04-23 10:09:14'),
-(9, 2, 'preliminary-qa-2', 'PRELIMINARY Q & A (FEMALE)', '2023-04-23 10:09:48', '2023-04-23 10:09:48'),
-(10, 2, 'final-qa-2', 'FINAL Q & A (FEMALE)', '2023-04-23 10:10:04', '2023-04-23 10:10:04');
+(1, 1, 'production-1', '(M) PRODUCTION', '2023-04-23 09:27:10', '2023-05-03 06:09:03'),
+(2, 1, 'swimwear-1', '(M) SWIMWEAR', '2023-04-23 09:28:36', '2023-05-03 06:09:13'),
+(3, 1, 'formal-wear', '(M) FORMAL WEAR', '2023-04-23 09:29:12', '2023-05-03 06:09:41'),
+(4, 1, 'preliminary-qa-1', '(M) PRELIMINARY Q & A', '2023-04-23 09:29:44', '2023-05-03 06:09:24'),
+(5, 1, 'final-qa-1', '(M) FINAL Q & A', '2023-04-23 09:30:11', '2023-05-03 06:09:33'),
+(6, 2, 'production-2', '(F) PRODUCTION', '2023-04-23 10:08:26', '2023-05-03 06:09:52'),
+(7, 2, 'swimwear-2', '(F) SWIMWEAR', '2023-04-23 10:08:43', '2023-05-03 06:10:12'),
+(8, 2, 'long-gown', '(F) LONG GOWN', '2023-04-23 10:09:14', '2023-05-03 06:10:19'),
+(9, 2, 'preliminary-qa-2', '(F) PRELIMINARY Q & A', '2023-04-23 10:09:48', '2023-05-03 06:10:28'),
+(10, 2, 'final-qa-2', '(F) FINAL Q & A', '2023-04-23 10:10:04', '2023-05-03 06:10:37');
 
 -- --------------------------------------------------------
 
@@ -747,6 +774,14 @@ ALTER TABLE `deductions`
   ADD KEY `event_id` (`event_id`);
 
 --
+-- Indexes for table `duos`
+--
+ALTER TABLE `duos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `event1` (`event_id_1`),
+  ADD KEY `event2` (`event_id_2`);
+
+--
 -- Indexes for table `eliminations`
 --
 ALTER TABLE `eliminations`
@@ -875,6 +910,12 @@ ALTER TABLE `deductions`
   MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `duos`
+--
+ALTER TABLE `duos`
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `eliminations`
 --
 ALTER TABLE `eliminations`
@@ -976,6 +1017,13 @@ ALTER TABLE `deductions`
   ADD CONSTRAINT `deductions_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `deductions_ibfk_2` FOREIGN KEY (`team_id`) REFERENCES `teams` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `deductions_ibfk_3` FOREIGN KEY (`technical_id`) REFERENCES `technicals` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `duos`
+--
+ALTER TABLE `duos`
+  ADD CONSTRAINT `duos_ibfk_1` FOREIGN KEY (`event_id_1`) REFERENCES `events` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `duos_ibfk_2` FOREIGN KEY (`event_id_2`) REFERENCES `events` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `eliminations`

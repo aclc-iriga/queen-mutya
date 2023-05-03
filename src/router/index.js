@@ -17,7 +17,7 @@ const router = createRouter({
             }
         },
         {
-            path: '/admin/:eventSlug?',
+            path: '/admin/:duoSlug?',
             name: 'admin',
             component: () => import('../views/Admin.vue'),
             beforeEnter: (to, from, next) => {
@@ -33,7 +33,7 @@ const router = createRouter({
             }
         },
         {
-            path: '/judge/:eventSlug?',
+            path: '/judge/:duoSlug?',
             name: 'judge',
             component: () => import('../views/Judge.vue'),
             beforeEnter: (to, from, next) => {
@@ -49,7 +49,7 @@ const router = createRouter({
             }
         },
         {
-            path: '/technical/:eventSlug?',
+            path: '/technical/:duoSlug?',
             name: 'technical',
             component: () => import('../views/Technical.vue'),
             beforeEnter: (to, from, next) => {

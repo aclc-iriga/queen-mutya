@@ -20,25 +20,39 @@ else {
     else {
         // get events
         if(isset($_GET['getEvents'])) {
-            require_once 'models/Category.php';
+            require_once 'models/Duo.php';
             require_once 'models/Event.php';
 
             echo json_encode([
-                'categories' => Category::rows(),
-                'events'     => Event::rows()
+                'duos'   => Duo::rows(),
+                'events' => Event::rows()
             ]);
         }
 
-        // tabulate an event
+        // tabulate a duo
         else if(isset($_GET['tabulate'])) {
-            require_once 'models/Event.php';
+            require_once 'models/Duo.php';
 
-            $event_slug = trim($_GET['tabulate']);
-            $event = Event::findBySlug($event_slug);
+            // get duo object
+            $duo_slug = trim($_GET['tabulate']);
+            $duo = Duo::findBySlug($duo_slug);
+
+            // get events
+            $event_1 = $duo->getEvent1();
+            $event_2 = $duo->getEvent2();
+
+            // tabulate events
+            $result_1 = $event_1 ? $admin->tabulate($event_1) : null;
+            $result_2 = $event_2 ? $admin->tabulate($event_2) : null;
 
             echo json_encode([
-                'event'   => $event->toArray(),
-                'results' => $admin->tabulate($event)
+                'duoSlug' => $duo_slug,
+                'results' => [
+                    'event_1'  => $event_1->toArray(),
+                    'event_2'  => $event_2->toArray(),
+                    'result_1' => $result_1,
+                    'result_2' => $result_2
+                ]
             ]);
         }
 

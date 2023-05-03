@@ -7,6 +7,11 @@
 		<h3 v-if="$vuetify.display.lgAndUp" id="topnav">{{ $store.getters.appName }}</h3>
 		<h4 v-else-if="$vuetify.display.mdAndDown" id="topnav">{{ $store.getters.appName }}</h4>
 
+        <v-spacer/>
+
+        <!-- horizontal menu -->
+        <h-menu v-if="$vuetify.display.lgAndUp"/>
+
 		<template v-if="$store.getters['auth/getUser'] !== null">
             <v-spacer/>
 
@@ -118,9 +123,13 @@
 
 <script>
     import $ from "jquery";
+    import HMenu from './HMenu.vue';
 
     export default {
         name: "TopNav",
+        components: {
+            HMenu
+        },
         data() {
             return {
                 dialog: false,

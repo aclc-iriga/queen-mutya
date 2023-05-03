@@ -1,36 +1,25 @@
 <template>
-	<v-navigation-drawer
-		theme="dark"
-		v-model="$store.state.app.sideNav"
-		:permanent="$vuetify.display.lgAndUp"
-	>
-        <v-list class="pa-0">
-            <v-list-item
-                v-for="duo in $store.getters['events/getAssignedDuos']"
-                :key="duo.id"
-                :variant="$route.params.duoSlug === duo.slug ? 'tonal' : 'text'"
-                class="text-center"
-                :class="`justify-center text-center text-button${$route.params.duoSlug === duo.slug ? ' text-yellow' : ''}`"
-                block
-                @click="handleDuoChange(duo)"
-            >
-                {{ duo.title }}
-            </v-list-item>
-        </v-list>
-		<template v-slot:append>
-			<v-col class="text-center mt-4" cols="12">
-                <v-btn class="mb-3" variant="tonal" @click="refresh" block :loading="refreshing">REFRESH</v-btn>
-				&copy; <strong class="text-uppercase">ACLC Iriga 2023</strong>
-			</v-col>
-		</template>
-	</v-navigation-drawer>
+    <v-btn
+        v-for="duo in $store.getters['events/getAssignedDuos']"
+        :key="duo.id"
+        :variant="$route.params.duoSlug === duo.slug ? 'tonal' : 'text'"
+        class="text-center"
+        :class="`justify-center text-center text-button${$route.params.duoSlug === duo.slug ? ' text-yellow' : ''}`"
+        @click="handleDuoChange(duo)"
+        size="small"
+    >
+        {{ duo.title }}
+    </v-btn>
+    <v-btn variant="tonal" @click="refresh" :loading="refreshing" size="small" icon class="mx-3">
+        <v-icon icon="mdi-refresh"/>
+    </v-btn>
 </template>
 
 <script>
     import $ from 'jquery';
 
     export default {
-        name: "SideNav",
+        name: "HMenu",
         data() {
             return {
                 refreshing: false
@@ -45,10 +34,6 @@
                         duoSlug: duo.slug
                     }
                 });
-
-                // close sidebar when screen is mdAndDown
-                if (this.$vuetify.display.mdAndDown)
-                    this.$store.state.app.sideNav = false;
             },
 
             refresh() {
