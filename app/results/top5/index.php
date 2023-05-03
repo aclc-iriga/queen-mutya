@@ -70,13 +70,15 @@
             $average4 = $result4['teams'][$team_key]['ratings']['average'];
         }
 
-        // get total rank and average
-        $total_rank    = $rank1 + $rank2 + $rank3 + $rank4;
-        $total_average = ($average1 + $average2 + $average3 + $average4) / sizeof(EVENT_SLUGS);
+        // get general average, rank total, and rank average
+        $general_average = ($average1 + $average2 + $average3 + $average4) / sizeof(EVENT_SLUGS);
+        $rank_total   = $rank1 + $rank2 + $rank3 + $rank4;
+        $rank_average = $rank_total / sizeof(EVENT_SLUGS);
 
-        // push $total_rank to $unique_total_ranks
-        if(!in_array($total_rank, $unique_total_ranks))
-            $unique_total_ranks[] = $total_rank;
+
+        // push $rank_total to $unique_total_ranks
+        if(!in_array($rank_total, $unique_total_ranks))
+            $unique_total_ranks[] = $rank_total;
 
         // append to $result
         $result[$team_key] = [
@@ -99,9 +101,10 @@
                     'average' => $average4
                 ]
             ],
-            'average' => $total_average,
+            'average' => $general_average,
             'rank' => [
-                'total'    => $total_rank,
+                'total'    => $rank_total,
+                'average'  => $rank_average,
                 'dense'    => 0,
                 'initial'  => 0,
                 'adjusted' => 0,
@@ -269,10 +272,13 @@
                     <?= $event4->getTitle() ?>
                 </th>
                 <th rowspan="2" class="text-center bl bt br">
-                    <span class="opacity-75">GENERAL<br>AVERAGE</span>
+                    <span class="opacity-75">GEN.<br>AVE.</span>
                 </th>
                 <th rowspan="2" class="text-center text-primary bl bt br">
-                    <span class="opacity-75">TOTAL<br>RANK</span>
+                    <span class="opacity-75">RANK<br>TOTAL</span>
+                </th>
+                <th rowspan="2" class="text-center text-primary bl bt br">
+                    <span class="opacity-75">RANK<br>AVE.</span>
                 </th>
                 <th rowspan="2" class="text-center bl bt br">
                     <span class="opacity-50">INITIAL<br>RANK</span>
@@ -372,9 +378,14 @@
                     </span>
                 </td>
 
-                <!-- total rank -->
+                <!-- rank total -->
                 <td class="pe-3 text-primary fw-bold bl br fw-bold" align="right">
                     <span class="opacity-75"><?= number_format($team['rank']['total'], 2) ?></span>
+                </td>
+
+                <!-- rank average -->
+                <td class="pe-3 text-primary fw-bold bl br fw-bold" align="right">
+                    <span class="opacity-75"><?= number_format($team['rank']['average'], 2) ?></span>
                 </td>
 
                 <!-- initial rank -->
