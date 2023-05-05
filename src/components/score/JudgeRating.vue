@@ -143,7 +143,15 @@
                         @focus.passive="updateCoordinates(criteria.length, teamIndex)"
                     />
                 </td>
-                <td class="text-center text-h6">{{ ranks[`team_${team.id}`].toFixed(2) }}</td>
+                <td
+                    class="text-center text-h6"
+                    :class="{
+                        'text-grey-darken-2': !scoreSheetDisabled,
+                        'text-grey-darken-1': scoreSheetDisabled,
+                    }"
+                >
+                    {{ ranks[`team_${team.id}`].toFixed(2) }}
+                </td>
             </tr>
         </tbody>
         <tfoot>
