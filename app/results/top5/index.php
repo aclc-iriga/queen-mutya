@@ -272,13 +272,13 @@
                     <?= $event4->getTitle() ?>
                 </th>
                 <th rowspan="2" class="text-center bl bt br">
-                    <span class="opacity-75">GEN.<br>AVE.</span>
+                    <span class="opacity-75">GEN.<br>AVG.</span>
                 </th>
                 <th rowspan="2" class="text-center text-primary bl bt br">
                     <span class="opacity-75">RANK<br>TOTAL</span>
                 </th>
                 <th rowspan="2" class="text-center text-primary bl bt br">
-                    <span class="opacity-75">RANK<br>AVE.</span>
+                    <span class="opacity-75">RANK<br>AVG.</span>
                 </th>
                 <th rowspan="2" class="text-center bl bt br">
                     <span class="opacity-50">INITIAL<br>RANK</span>
@@ -291,16 +291,16 @@
                 </th>
             </tr>
             <tr class="table-secondary">
-                <th class="text-center bl"><span class="opacity-75">Ave.</span></th>
+                <th class="text-center bl"><span class="opacity-75">Avg.</span></th>
                 <th class="text-center text-primary br">Rank</th>
 
-                <th class="text-center bl"><span class="opacity-75">Ave.</span></th>
+                <th class="text-center bl"><span class="opacity-75">Avg.</span></th>
                 <th class="text-center text-primary br">Rank</th>
 
-                <th class="text-center bl"><span class="opacity-75">Ave.</span></th>
+                <th class="text-center bl"><span class="opacity-75">Avg.</span></th>
                 <th class="text-center text-primary br">Rank</th>
 
-                <th class="text-center bl"><span class="opacity-75">Ave.</span></th>
+                <th class="text-center bl"><span class="opacity-75">Avg.</span></th>
                 <th class="text-center text-primary br">Rank</th>
             </tr>
         </thead>
