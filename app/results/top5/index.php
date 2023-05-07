@@ -16,95 +16,39 @@
     // initialize admin
     $admin = new Admin();
 
-    // initialize events
-    $event1 = Event::findBySlug(EVENT_SLUGS[0]);
-    $event2 = Event::findBySlug(EVENT_SLUGS[1]);
-    $event3 = Event::findBySlug(EVENT_SLUGS[2]);
-    $event4 = Event::findBySlug(EVENT_SLUGS[3]);
+    // initialize events and tabulate results
+    $events  = [];
+    $results = [];
+    $category_title = '';
+    $teams      = [];
+    $judges     = [];
+    $technicals = [];
+    for($i=0; $i<sizeof(EVENT_SLUGS); $i++) {
+        $events[]  = Event::findBySlug(EVENT_SLUGS[$i]);
+        $results[] = $admin->tabulate($events[$i]);
 
-    // initialize category
-    $category_title = $event1->getCategory()->getTitle();
-
-    // tabulate events
-    $result1 = $admin->tabulate($event1);
-    $result2 = $admin->tabulate($event2);
-    $result3 = $admin->tabulate($event3);
-    $result4 = $admin->tabulate($event4);
+        if($i == 0) {
+            $category_title = $events[$i]->getCategory()->getTitle();
+            $teams      = $events[$i]->getAllTeams();
+            $judges     = $events[$i]->getAllJudges();
+            $technicals = $events[$i]->getAllTechnicals();
+        }
+    }
 
     // process result
     $result = [];
     $unique_total_ranks    = [];
     $unique_adjusted_ranks = [];
-    foreach($event1->getAllTeams() as $team) {
+    foreach($teams as $team) {
         $team_key = 'team_'.$team->getId();
 
-        // get $event1 rank and average
-        $rank1    = 0;
-        $average1 = 0;
-        if(isset($result1['teams'][$team_key])) {
-            $rank1    = $result1['teams'][$team_key]['rank']['final']['fractional'];
-            $average1 = $result1['teams'][$team_key]['ratings']['average'];
-        }
-
-        // get $event2 rank and average
-        $rank2    = 0;
-        $average2 = 0;
-        if(isset($result2['teams'][$team_key])) {
-            $rank2    = $result2['teams'][$team_key]['rank']['final']['fractional'];
-            $average2 = $result2['teams'][$team_key]['ratings']['average'];
-        }
-
-        // get $event3 rank and average
-        $rank3    = 0;
-        $average3 = 0;
-        if(isset($result3['teams'][$team_key])) {
-            $rank3    = $result3['teams'][$team_key]['rank']['final']['fractional'];
-            $average3 = $result3['teams'][$team_key]['ratings']['average'];
-        }
-
-        // get $event4 rank and average
-        $rank4    = 0;
-        $average4 = 0;
-        if(isset($result4['teams'][$team_key])) {
-            $rank4    = $result4['teams'][$team_key]['rank']['final']['fractional'];
-            $average4 = $result4['teams'][$team_key]['ratings']['average'];
-        }
-
-        // get general average, rank total, and rank average
-        $general_average = ($average1 + $average2 + $average3 + $average4) / sizeof(EVENT_SLUGS);
-        $rank_total   = $rank1 + $rank2 + $rank3 + $rank4;
-        $rank_average = $rank_total / sizeof(EVENT_SLUGS);
-
-
-        // push $rank_total to $unique_total_ranks
-        if(!in_array($rank_total, $unique_total_ranks))
-            $unique_total_ranks[] = $rank_total;
-
-        // append to $result
-        $result[$team_key] = [
-            'info'   => $team->toArray(),
-            'inputs' => [
-                EVENT_SLUGS[0] => [
-                    'rank'    => $rank1,
-                    'average' => $average1
-                ],
-                EVENT_SLUGS[1] => [
-                    'rank'    => $rank2,
-                    'average' => $average2
-                ],
-                EVENT_SLUGS[2] => [
-                    'rank'    => $rank3,
-                    'average' => $average3
-                ],
-                EVENT_SLUGS[3] => [
-                    'rank'    => $rank4,
-                    'average' => $average4
-                ]
-            ],
-            'average' => $general_average,
-            'rank' => [
-                'total'    => $rank_total,
-                'average'  => $rank_average,
+        $t = [
+            'info'    => $team->toArray(),
+            'inputs'  => [],
+            'average' => 0,
+            'rank'    => [
+                'total'    => 0,
+                'average'  => 0,
                 'dense'    => 0,
                 'initial'  => 0,
                 'adjusted' => 0,
@@ -115,6 +59,39 @@
             ],
             'title' => ''
         ];
+
+        // get rank and average
+        for($i=0; $i<sizeof($events); $i++) {
+            $r = [
+                'rank'    => 0,
+                'average' => 0,
+            ];
+
+            if(isset($results[$i]['teams'][$team_key])) {
+                $r['rank']    = $results[$i]['teams'][$team_key]['rank']['final']['fractional'];
+                $r['average'] = $results[$i]['teams'][$team_key]['ratings']['average'];
+            }
+
+            // append $r to $t['inputs']
+            $t['inputs'][EVENT_SLUGS[$i]] = $r;
+
+            // accumulate totals
+            $t['average'] += $r['average'];
+            $t['rank']['total']   += $r['rank'];
+            $t['rank']['average'] += $r['rank'];
+        }
+
+        // complete $t['average'] and $t['rank']['average']
+        $t['average'] /= sizeof($events);
+        $t['rank']['average'] /= sizeof($events);
+
+
+        // push $t['rank']['total'] to $unique_total_ranks
+        if(!in_array($t['rank']['total'], $unique_total_ranks))
+            $unique_total_ranks[] = $t['rank']['total'];
+
+        // append $t to $result
+        $result[$team_key] = $t;
     }
 
     // sort $unique_total_ranks
@@ -259,18 +236,11 @@
                     <h1 class="m-0">TOP <?= sizeof($titles) ?></h1>
                     <h5><?= $category_title ?></h5>
                 </th>
-                <th colspan="2" class="text-center text-success bt br" style="width: 11%">
-                    <?= $event1->getTitle() ?>
-                </th>
-                <th colspan="2" class="text-center text-success bt br" style="width: 11%">
-                    <?= $event2->getTitle() ?>
-                </th>
-                <th colspan="2" class="text-center text-success bt br" style="width: 11%">
-                    <?= $event3->getTitle() ?>
-                </th>
-                <th colspan="2" class="text-center text-success bt br" style="width: 11%">
-                    <?= $event4->getTitle() ?>
-                </th>
+                <?php for($i=0; $i<sizeof($events); $i++) { ?>
+                    <th colspan="2" class="text-center text-success bt br" style="width: 11%">
+                        <?= $events[$i]->getTitle() ?>
+                    </th>
+                <?php } ?>
                 <th rowspan="2" class="text-center bl bt br">
                     <span class="opacity-75">GEN.<br>AVG.</span>
                 </th>
@@ -291,17 +261,10 @@
                 </th>
             </tr>
             <tr class="table-secondary">
-                <th class="text-center bl"><span class="opacity-75">Avg.</span></th>
-                <th class="text-center text-primary br">Rank</th>
-
-                <th class="text-center bl"><span class="opacity-75">Avg.</span></th>
-                <th class="text-center text-primary br">Rank</th>
-
-                <th class="text-center bl"><span class="opacity-75">Avg.</span></th>
-                <th class="text-center text-primary br">Rank</th>
-
-                <th class="text-center bl"><span class="opacity-75">Avg.</span></th>
-                <th class="text-center text-primary br">Rank</th>
+                <?php for($i=0; $i<sizeof($events); $i++) { ?>
+                    <th class="text-center bl"><span class="opacity-75">Avg.</span></th>
+                    <th class="text-center text-primary br">Rank</th>
+                <?php } ?>
             </tr>
         </thead>
 
@@ -331,45 +294,17 @@
                     <small class="m-0"><?= $team['info']['location'] ?></small>
                 </td>
 
-                <!-- event1 -->
-                <td class="pe-3 bl" align="right">
-                    <span class="opacity-75">
-                        <?= number_format($team['inputs'][EVENT_SLUGS[0]]['average'], 2) ?>
-                    </span>
-                </td>
-                <td class="pe-3 text-primary br" align="right">
-                    <?= number_format($team['inputs'][EVENT_SLUGS[0]]['rank'], 2) ?>
-                </td>
-
-                <!-- event2 -->
-                <td class="pe-3 bl" align="right">
-                    <span class="opacity-75">
-                        <?= number_format($team['inputs'][EVENT_SLUGS[1]]['average'], 2) ?>
-                    </span>
-                </td>
-                <td class="pe-3 text-primary br" align="right">
-                    <?= number_format($team['inputs'][EVENT_SLUGS[1]]['rank'], 2) ?>
-                </td>
-
-                <!-- event3 -->
-                <td class="pe-3 bl" align="right">
-                    <span class="opacity-75">
-                        <?= number_format($team['inputs'][EVENT_SLUGS[2]]['average'], 2) ?>
-                    </span>
-                </td>
-                <td class="pe-3 text-primary br" align="right">
-                    <?= number_format($team['inputs'][EVENT_SLUGS[2]]['rank'], 2) ?>
-                </td>
-
-                <!-- event4 -->
-                <td class="pe-3 bl" align="right">
-                    <span class="opacity-75">
-                        <?= number_format($team['inputs'][EVENT_SLUGS[3]]['average'], 2) ?>
-                    </span>
-                </td>
-                <td class="pe-3 text-primary br" align="right">
-                    <?= number_format($team['inputs'][EVENT_SLUGS[3]]['rank'], 2) ?>
-                </td>
+                <!-- averages -->
+                <?php for($i=0; $i<sizeof($events); $i++) { ?>
+                    <td class="pe-3 bl" align="right">
+                        <span class="opacity-75">
+                            <?= number_format($team['inputs'][EVENT_SLUGS[$i]]['average'], 2) ?>
+                        </span>
+                    </td>
+                    <td class="pe-3 text-primary br" align="right">
+                        <?= number_format($team['inputs'][EVENT_SLUGS[$i]]['rank'], 2) ?>
+                    </td>
+                <?php } ?>
 
                 <!-- general average -->
                 <td class="pe-3 bl br fw-bold" align="right">
@@ -410,7 +345,7 @@
     <!-- Judges -->
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <?php foreach($event1->getAllJudges() as $judge) { ?>
+            <?php foreach($judges as $judge) { ?>
                 <div class="col-md-4">
                     <div class="mt-5 pt-3 text-center">
                         <h6 class="mb-0"><?= $judge->getName() ?></h6>
@@ -418,7 +353,7 @@
                     <div class="text-center">
                         <p class="mb-0">
                             Judge <?= $judge->getNumber() ?>
-                            <?php if($judge->isChairmanOfEvent($event1)) { ?>
+                            <?php if($judge->isChairmanOfEvent($events[0])) { ?>
                                 * (Chairman)
                             <?php } ?>
                         </p>
