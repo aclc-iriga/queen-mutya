@@ -10,6 +10,14 @@
     require_once '../../models/Team.php';
     require_once '../../models/Event.php';
 
+    // involved events
+    const EVENT_SLUGS = [
+        'production',
+        'swimwear',
+        'advocacy',
+        'evening-gown'
+    ];
+
     // initialize titles
     $titles = ['1', '2', '3', '4', '5'];
 
