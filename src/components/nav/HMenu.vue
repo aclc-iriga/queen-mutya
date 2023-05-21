@@ -11,7 +11,10 @@
     >
         {{ duo.title }}
     </v-btn>
-    <v-btn variant="tonal" @click="refresh" :loading="refreshing" size="small" icon class="mx-3" style="font-size: 1rem !important;">
+    <v-btn variant="tonal" @click="cover" size="small" icon class="ml-3 mr-1" style="font-size: 1rem !important;">
+        <v-icon icon="mdi-pause"/>
+    </v-btn>
+    <v-btn variant="tonal" @click="refresh" :loading="refreshing" size="small" icon class="ml-1 mr-3" style="font-size: 1rem !important;">
         <v-icon icon="mdi-refresh"/>
     </v-btn>
 </template>
@@ -36,7 +39,9 @@
                     }
                 });
             },
-
+            cover() {
+                forceScreensaver();
+            },
             refresh() {
                 this.refreshing = true;
                 window.location.reload();
