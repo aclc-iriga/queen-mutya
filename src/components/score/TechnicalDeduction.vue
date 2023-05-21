@@ -73,7 +73,7 @@
                            || deductions[`${event.slug}_${team.id}`].value < 0
                            || deductions[`${event.slug}_${team.id}`].value > 100
                        )"
-                       :disabled="deductions[`${event.slug}_${team.id}`].is_locked"
+                        :disabled="team.disabled || deductions[`${event.slug}_${team.id}`].is_locked"
                         :id="`input_${teamIndex}`"
                         @keydown.down.prevent="moveDown(teamIndex)"
                         @keydown.enter="moveDown(teamIndex)"
@@ -299,27 +299,33 @@
                     }
                 });
             },
-            move (y, focus = true) {
+            move(y, callback, focus = true) {
                 // move to input
                 const nextInput = document.querySelector(`#${this.componentId} #input_${y}`);
-                if(nextInput) {
-                    if(focus)
-                        nextInput.focus();
-                    if(Number(nextInput.value) <= 0)
-                        nextInput.select();
+                if (nextInput) {
+                    if(nextInput.disabled) {
+                        if(callback)
+                            callback(y);
+                    }
+                    else {
+                        if (focus)
+                            nextInput.focus();
+                        if (Number(nextInput.value) <= 0)
+                            nextInput.select();
+                    }
                 }
             },
             moveDown (y) {
                 // move to input below
                 y += 1;
                 if(y < this.teams.length)
-                    this.move(y);
+                    this.move(y, this.moveDown);
             },
             moveUp (y)  {
                 // move to input above
                 y -= 1;
                 if(y >= 0)
-                    this.move(y);
+                    this.move(y, this.moveUp);
             },
             updateCoordinates (y) {
                 this.coordinates.y = y;
