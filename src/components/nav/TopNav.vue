@@ -24,6 +24,7 @@
                 :color="askingForHelp ? 'warning' : 'grey'"
                 :disabled="helpDisabled"
                 @click="toggleHelp"
+                width="165"
             >
                 <template v-if="askingForHelp">
                     <v-progress-circular
