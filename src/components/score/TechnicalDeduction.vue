@@ -204,7 +204,8 @@
                             withCredentials: true
                         },
                         data: {
-                            getDeductionSheet: this.eventSlug
+                            getDeductionSheet: this.eventSlug,
+                            duoSlug: this.$route.params.duoSlug ? this.$route.params.duoSlug : null
                         },
                         success: (data) => {
                             data = JSON.parse(data);

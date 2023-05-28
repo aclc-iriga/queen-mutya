@@ -62,7 +62,7 @@
                         },
                         data: {
                             ping: true,
-                            eventSlug: this.$route.params.eventSlug ? this.$route.params.eventSlug : null
+                            duoSlug: this.$route.params.duoSlug ? this.$route.params.duoSlug : null
                         },
                         success: (data) => {
                             data = JSON.parse(data);
