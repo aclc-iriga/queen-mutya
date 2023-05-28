@@ -61,7 +61,8 @@
                             withCredentials: true
                         },
                         data: {
-                            ping: true
+                            ping: true,
+                            duoSlug: this.$route.params.duoSlug ? this.$route.params.duoSlug : null
                         },
                         success: (data) => {
                             data = JSON.parse(data);

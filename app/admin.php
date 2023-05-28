@@ -36,6 +36,7 @@ else {
             // get duo object
             $duo_slug = trim($_GET['tabulate']);
             $duo = Duo::findBySlug($duo_slug);
+            // $admin->setActivePortion($duo_slug);
 
             // get events
             $event_1 = $duo->getEvent1();

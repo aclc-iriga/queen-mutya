@@ -380,7 +380,8 @@
                             withCredentials: true
                         },
                         data: {
-                            getScoreSheet: this.eventSlug
+                            getScoreSheet: this.eventSlug,
+                            duoSlug: this.$route.params.duoSlug ? this.$route.params.duoSlug : null
                         },
                         success: (data) => {
                             data = JSON.parse(data);
