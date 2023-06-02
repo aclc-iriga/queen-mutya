@@ -55,8 +55,8 @@ else {
 
             $event_slug = trim($_GET['getScoreSheet']);
             $event = Event::findBySlug($event_slug);
-            if(isset($_POST['duoSlug']))
-                $judge->setActivePortion($_POST['duoSlug']);
+            if(isset($_GET['duoSlug']))
+                $judge->setActivePortion($_GET['duoSlug']);
 
             echo json_encode([
                 'event'    => $event->toArray(),

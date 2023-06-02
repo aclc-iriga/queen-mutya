@@ -55,8 +55,8 @@ else {
 
             $event_slug = trim($_GET['getDeductionSheet']);
             $event = Event::findBySlug($event_slug);
-            if(isset($_POST['duoSlug']))
-                $technical->setActivePortion($_POST['duoSlug']);
+            if(isset($_GET['duoSlug']))
+                $technical->setActivePortion($_GET['duoSlug']);
 
             echo json_encode([
                 'event'      => $event->toArray(),
