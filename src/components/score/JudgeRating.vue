@@ -152,7 +152,7 @@
                         'text-grey-darken-1': scoreSheetDisabled,
                     }"
                 >
-                    <span :style="{'opacity': team.disabled ? 0.6 : 1}">{{ ranks[`team_${team.id}`].toFixed(1) }}</span>
+                    <span :style="{'opacity': team.disabled ? 0.6 : 1}">{{ ranks[`team_${team.id}`] }}</span>
                 </td>
             </tr>
         </tbody>
