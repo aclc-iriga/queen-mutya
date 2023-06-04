@@ -31,7 +31,7 @@
                 :class="{ 'bg-grey-lighten-4': coordinates.y == teamIndex && !scoreSheetDisabled }"
             >
                 <td
-                    class="text-uppercase text-right text-h5 font-weight-bold text-grey-darken-2"
+                    class="text-uppercase text-right text-h4 font-weight-bold text-grey-darken-2"
                     :class="{ 'text-grey-darken-4': coordinates.y == teamIndex && !scoreSheetDisabled }"
                     style="width: 0.2rem;"
                 >
