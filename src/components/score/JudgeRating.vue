@@ -35,6 +35,7 @@
                             class="text-grey-darken-2"
                             :class="{
                                 'text-subtitle-2 font-weight-bold': $vuetify.display.mdAndDown,
+                                'text-h6': $vuetify.display.lgAndUp,
                                 'text-grey-darken-4': coordinates.x == criterionIndex && !scoreSheetDisabled
                             }"
                             style="margin-top: auto"
