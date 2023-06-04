@@ -173,7 +173,7 @@
                     />
                 </td>
                 <td
-                    class="text-center font-weight-bold"
+                    class="text-center text-h6"
                     :class="{
                         'text-grey-darken-2': coordinates.y != teamIndex && !scoreSheetDisabled,
                         'text-grey-darken-4': coordinates.y == teamIndex && !scoreSheetDisabled,
