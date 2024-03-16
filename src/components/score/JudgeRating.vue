@@ -15,40 +15,43 @@
                 >
                     {{ event.title }}
                 </th>
-                <th
-                    v-for="(criterion, criterionIndex) in criteria"
-                    style="width: 13%"
-                    class="text-center text-uppercase py-3"
-                    :class="{ 'bg-grey-lighten-4': coordinates.x == criterionIndex && !scoreSheetDisabled }"
-                >
-                    <div class="d-flex h-100 flex-column align-content-space-between">
-                        <p
-                            class="text-grey-darken-1"
-                            :class="{
-                                'text-caption text-uppercase': $vuetify.display.mdAndDown,
-                                'text-grey-darken-3': coordinates.x == criterionIndex && !scoreSheetDisabled
-                            }"
-                        >
-                            {{ criterion.title }}
-                        </p>
-                        <b
-                            class="text-grey-darken-2 text-h6 pt-1"
-                            :class="{
-                                'text-body-2 text-uppercase font-weight-bold': $vuetify.display.mdAndDown,
-                                'text-grey-darken-4': coordinates.x == criterionIndex && !scoreSheetDisabled
-                            }"
-                            style="margin-top: auto"
-                        >
-                            {{ criterion.percentage }}%
-                        </b>
-                    </div>
-                </th>
+                <template v-if="criteria.length > 1">
+                    <th
+                        v-for="(criterion, criterionIndex) in criteria"
+                        style="width: 13%"
+                        class="text-center text-uppercase py-3"
+                        :class="{ 'bg-grey-lighten-4': coordinates.x == criterionIndex && !scoreSheetDisabled }"
+                    >
+                        <div class="d-flex h-100 flex-column align-content-space-between">
+                            <p
+                                class="text-grey-darken-1"
+                                :class="{
+                                    'text-caption text-uppercase': $vuetify.display.mdAndDown,
+                                    'text-grey-darken-3': coordinates.x == criterionIndex && !scoreSheetDisabled
+                                }"
+                            >
+                                {{ criterion.title }}
+                            </p>
+                            <b
+                                class="text-grey-darken-2 text-h6 pt-1"
+                                :class="{
+                                    'text-body-2 text-uppercase font-weight-bold': $vuetify.display.mdAndDown,
+                                    'text-grey-darken-4': coordinates.x == criterionIndex && !scoreSheetDisabled
+                                }"
+                                style="margin-top: auto"
+                            >
+                                {{ criterion.percentage }}%
+                            </b>
+                        </div>
+                    </th>
+                </template>
                 <th
                     style="width: 13%"
                     class="text-uppercase text-center text-grey-darken-3 font-weight-bold py-3"
                     :class="{ 'bg-grey-lighten-4': coordinates.x == criteria.length && !scoreSheetDisabled }, $vuetify.display.mdAndDown ? 'text-body-1' : 'text-h6'"
                 >
-                    Total
+                    <template v-if="criteria.length > 1">Total</template>
+                    <template v-else-if="criteria.length === 1">{{ criteria[0].title }}</template>
                     <p class="ma-0 text-subtitle-2 text-green-darken-2">{{ minRating.toFixed(2) }} - {{ (maxRating >= 100) ? maxRating.toFixed(0) : maxRating.toFixed(2) }}</p>
                 </th>
                 <th
@@ -88,53 +91,55 @@
                     <p class="ma-0 text-subtitle-2 text-uppercase font-weight-bold" style="line-height: 1.2">{{ team.name }}</p>
                     <p class="mt-1 mb-0" style="line-height: 1"><small>{{ team.location }}</small></p>
                 </td>
-                <td
-                    v-for="(criterion, criterionIndex) in criteria"
-                    :key="criterion.id"
-                    :class="{ 'bg-grey-lighten-4': coordinates.x == criterionIndex && !scoreSheetDisabled }"
-                >
-                    <v-text-field
-                        type="number"
-                        class="font-weight-bold"
-                        hide-details
-                        single-line
-                        :min="0"
-                        :max="criterion.percentage"
-                        @change="saveRating(ratings[`${event.slug}_${team.id}`][`${$store.getters['auth/getUser'].id}_${criterion.id}_${team.id}`], criterion.percentage, team)"
-                        v-model.number="ratings[`${event.slug}_${team.id}`][`${$store.getters['auth/getUser'].id}_${criterion.id}_${team.id}`].value"
-                        :class="{
-                            'text-error font-weight-bold': (
-                                ratings[`${event.slug}_${team.id}`][`${$store.getters['auth/getUser'].id}_${criterion.id}_${team.id}`].value < 0 ||
+                <template v-if="criteria.length > 1">
+                    <td
+                        v-for="(criterion, criterionIndex) in criteria"
+                        :key="criterion.id"
+                        :class="{ 'bg-grey-lighten-4': coordinates.x == criterionIndex && !scoreSheetDisabled }"
+                    >
+                        <v-text-field
+                            type="number"
+                            class="font-weight-bold"
+                            hide-details
+                            single-line
+                            :min="0"
+                            :max="criterion.percentage"
+                            @change="saveRating(ratings[`${event.slug}_${team.id}`][`${$store.getters['auth/getUser'].id}_${criterion.id}_${team.id}`], criterion.percentage, team)"
+                            v-model.number="ratings[`${event.slug}_${team.id}`][`${$store.getters['auth/getUser'].id}_${criterion.id}_${team.id}`].value"
+                            :class="{
+                                'text-error font-weight-bold': (
+                                    ratings[`${event.slug}_${team.id}`][`${$store.getters['auth/getUser'].id}_${criterion.id}_${team.id}`].value < 0 ||
+                                    ratings[`${event.slug}_${team.id}`][`${$store.getters['auth/getUser'].id}_${criterion.id}_${team.id}`].value > criterion.percentage
+                                ),
+                                'text-grey-darken-1': ratings[`${event.slug}_${team.id}`][`${$store.getters['auth/getUser'].id}_${criterion.id}_${team.id}`].value === 0,
+                                'text-grey-darken-3': (
+                                    ratings[`${event.slug}_${team.id}`][`${$store.getters['auth/getUser'].id}_${criterion.id}_${team.id}`].value > 0 &&
+                                    ratings[`${event.slug}_${team.id}`][`${$store.getters['auth/getUser'].id}_${criterion.id}_${team.id}`].value <= criterion.percentage
+                                )
+                            }"
+                            :error="(
+                                  ratings[`${event.slug}_${team.id}`][`${$store.getters['auth/getUser'].id}_${criterion.id}_${team.id}`].value.toString().trim() === ''
+                               || ratings[`${event.slug}_${team.id}`][`${$store.getters['auth/getUser'].id}_${criterion.id}_${team.id}`].value < 0
+                               || ratings[`${event.slug}_${team.id}`][`${$store.getters['auth/getUser'].id}_${criterion.id}_${team.id}`].value > criterion.percentage
+                            )"
+                            :variant="
+                                ratings[`${event.slug}_${team.id}`][`${$store.getters['auth/getUser'].id}_${criterion.id}_${team.id}`].value < 0
+                                ||
                                 ratings[`${event.slug}_${team.id}`][`${$store.getters['auth/getUser'].id}_${criterion.id}_${team.id}`].value > criterion.percentage
-                            ),
-                            'text-grey-darken-1': ratings[`${event.slug}_${team.id}`][`${$store.getters['auth/getUser'].id}_${criterion.id}_${team.id}`].value === 0,
-                            'text-grey-darken-3': (
-                                ratings[`${event.slug}_${team.id}`][`${$store.getters['auth/getUser'].id}_${criterion.id}_${team.id}`].value > 0 &&
-                                ratings[`${event.slug}_${team.id}`][`${$store.getters['auth/getUser'].id}_${criterion.id}_${team.id}`].value <= criterion.percentage
-                            )
-                        }"
-                        :error="(
-                              ratings[`${event.slug}_${team.id}`][`${$store.getters['auth/getUser'].id}_${criterion.id}_${team.id}`].value.toString().trim() === ''
-                           || ratings[`${event.slug}_${team.id}`][`${$store.getters['auth/getUser'].id}_${criterion.id}_${team.id}`].value < 0
-                           || ratings[`${event.slug}_${team.id}`][`${$store.getters['auth/getUser'].id}_${criterion.id}_${team.id}`].value > criterion.percentage
-                        )"
-                        :variant="
-                            ratings[`${event.slug}_${team.id}`][`${$store.getters['auth/getUser'].id}_${criterion.id}_${team.id}`].value < 0
-                            ||
-                            ratings[`${event.slug}_${team.id}`][`${$store.getters['auth/getUser'].id}_${criterion.id}_${team.id}`].value > criterion.percentage
-                            ? 'outlined' : 'underlined'
-                        "
-                        :disabled="team.disabled || ratings[`${event.slug}_${team.id}`][`${$store.getters['auth/getUser'].id}_${criterion.id}_${team.id}`].is_locked"
-                        :id="`input_${teamIndex}_${criterionIndex}`"
-                        @keyup.prevent="handleRatingKeyUp(team)"
-                        @keydown.down.prevent="moveDown(criterionIndex, teamIndex)"
-                        @keydown.enter="moveDown(criterionIndex, teamIndex)"
-                        @keydown.up.prevent="moveUp(criterionIndex, teamIndex)"
-                        @keydown.right.prevent="moveRight(criterionIndex, teamIndex)"
-                        @keydown.left.prevent="moveLeft(criterionIndex, teamIndex)"
-                        @focus.passive="updateCoordinates(criterionIndex, teamIndex)"
-                    />
-                </td>
+                                ? 'outlined' : 'underlined'
+                            "
+                            :disabled="team.disabled || ratings[`${event.slug}_${team.id}`][`${$store.getters['auth/getUser'].id}_${criterion.id}_${team.id}`].is_locked"
+                            :id="`input_${teamIndex}_${criterionIndex}`"
+                            @keyup.prevent="handleRatingKeyUp(team)"
+                            @keydown.down.prevent="moveDown(criterionIndex, teamIndex)"
+                            @keydown.enter="moveDown(criterionIndex, teamIndex)"
+                            @keydown.up.prevent="moveUp(criterionIndex, teamIndex)"
+                            @keydown.right.prevent="moveRight(criterionIndex, teamIndex)"
+                            @keydown.left.prevent="moveLeft(criterionIndex, teamIndex)"
+                            @focus.passive="updateCoordinates(criterionIndex, teamIndex)"
+                        />
+                    </td>
+                </template>
                 <td :class="{ 'bg-grey-lighten-4': coordinates.x == criteria.length && !scoreSheetDisabled }">
                     <v-text-field
                         type="number"
