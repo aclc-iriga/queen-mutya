@@ -46,7 +46,7 @@
                     </th>
                 </template>
                 <th
-                    style="width: 13%"
+                    :style="{ width: criteria.length > 1 ? '13%' : '17%' }"
                     class="text-uppercase text-center text-grey-darken-3 font-weight-bold py-3"
                     :class="{ 'bg-grey-lighten-4': coordinates.x == criteria.length && !scoreSheetDisabled }, $vuetify.display.mdAndDown ? 'text-body-1' : 'text-h6'"
                 >
