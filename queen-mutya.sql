@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 20, 2025 at 10:02 AM
+-- Generation Time: Jun 20, 2025 at 03:55 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -364,7 +364,12 @@ INSERT INTO `eliminations` (`id`, `event_id`, `team_id`, `created_at`, `updated_
 (130, 12, 16, '2025-06-20 07:09:34', '2025-06-20 07:09:34'),
 (131, 12, 17, '2025-06-20 07:09:34', '2025-06-20 07:09:34'),
 (132, 12, 18, '2025-06-20 07:09:35', '2025-06-20 07:09:35'),
-(133, 12, 19, '2025-06-20 07:09:36', '2025-06-20 07:09:36');
+(133, 12, 19, '2025-06-20 07:09:36', '2025-06-20 07:09:36'),
+(134, 1, 9, '2025-06-20 13:46:38', '2025-06-20 13:46:38'),
+(135, 3, 9, '2025-06-20 13:46:39', '2025-06-20 13:46:39'),
+(136, 5, 9, '2025-06-20 13:46:40', '2025-06-20 13:46:40'),
+(137, 7, 9, '2025-06-20 13:46:43', '2025-06-20 13:46:43'),
+(138, 9, 9, '2025-06-20 13:46:44', '2025-06-20 13:46:44');
 
 -- --------------------------------------------------------
 
@@ -601,24 +606,24 @@ CREATE TABLE `teams` (
 
 INSERT INTO `teams` (`id`, `number`, `name`, `location`, `avatar`, `created_at`, `updated_at`) VALUES
 (1, 1, 'MARIA CHESKA DEYN', 'Pilar, Sorsogon', 'queen-maria-cheska-deyn.jpg', '2025-06-20 07:01:01', '2025-06-20 07:01:01'),
-(2, 2, 'SAPPHIRE NEIGEL', 'Iriga City', 'queen-sapphire-neigel.jpg', '2025-06-20 07:01:01', '2025-06-20 07:01:01'),
-(3, 3, 'PRECIOUS LOVEMARIE', 'Naga City', 'queen-precious-lovemarie.jpg', '2025-06-20 07:01:01', '2025-06-20 07:01:01'),
-(4, 4, 'MACY DELA PAZ', 'Legazapi City', 'queen-macy-dela-paz.jpg', '2025-06-20 07:01:01', '2025-06-20 07:01:01'),
-(5, 5, 'ML TUCAY', 'Pangasinan', 'queen-ml-tucay.jpg', '2025-06-20 07:01:01', '2025-06-20 07:01:01'),
-(6, 6, 'JONA', 'Albay', 'queen-jona.jpg', '2025-06-20 07:01:01', '2025-06-20 07:01:01'),
-(7, 7, 'JEWEL OLIVERA', 'Guinobatan, Albay', 'queen-jewel-olivera.jpg', '2025-06-20 07:01:01', '2025-06-20 07:01:01'),
-(8, 8, 'GABRIELLE', 'Nabua', 'queen-gabrielle.jpg', '2025-06-20 07:01:01', '2025-06-20 07:01:01'),
-(9, 9, 'AMIELA JOHNA', 'Iriga City', 'queen-amiela-johna.jpg', '2025-06-20 07:01:01', '2025-06-20 07:01:01'),
-(10, 1, 'MERIAM DEFENSOR FORTSANTIAGO', 'Tondo, Manila', 'mutya-meriam-defensor-fortsantiago.jpg', '2025-06-20 07:01:01', '2025-06-20 07:01:01'),
-(11, 2, 'BRYAN NAVA', 'Iriga City', 'mutya-bryan-nava.jpg', '2025-06-20 07:01:01', '2025-06-20 07:01:01'),
-(12, 3, 'TONI DRAGONZAGA', 'Caloocan', 'mutya-toni-dragonzaga.jpg', '2025-06-20 07:01:01', '2025-06-20 07:01:01'),
-(13, 4, 'PRINCESS FIONA', 'Iriga City', 'mutya-princess-fiona.jpg', '2025-06-20 07:01:01', '2025-06-20 07:01:01'),
-(14, 5, 'SAM GOKU', 'Navotas City', 'mutya-sam-goku.jpg', '2025-06-20 07:01:01', '2025-06-20 07:01:01'),
-(15, 6, 'ODESSA OLIVIA', 'Iriga City', 'mutya-odessa-olivia.jpg', '2025-06-20 07:01:01', '2025-06-20 07:01:01'),
-(16, 7, 'JULIA BARETTA', 'Malabon City', 'mutya-jullia-baretta.jpg', '2025-06-20 07:01:01', '2025-06-20 07:01:01'),
-(17, 8, 'DIANA KADIRI', 'Malabon City', 'mutya-diana-kadiri.jpg', '2025-06-20 07:01:01', '2025-06-20 07:01:01'),
-(18, 9, 'BEA BUNDA', 'Rosario, Cavite', 'mutya-bea-bunda.jpg', '2025-06-20 07:01:01', '2025-06-20 07:01:01'),
-(19, 10, 'BARBIENGOT FORTEZA', 'Pandi, Bulacan', 'mutya-barbiengot-forteza.jpg', '2025-06-20 07:01:01', '2025-06-20 07:01:01');
+(2, 2, 'AMIELA JOHNA', 'Iriga City', 'queen-amiela-johna.jpg', '2025-06-20 07:01:01', '2025-06-20 13:25:06'),
+(3, 3, 'JEWEL OLIVERA', 'Guinobatan, Albay', 'queen-jewel-olivera.jpg', '2025-06-20 07:01:01', '2025-06-20 13:25:26'),
+(4, 4, 'ML TUCAY', 'Pangasinan', 'queen-ml-tucay.jpg', '2025-06-20 07:01:01', '2025-06-20 13:25:51'),
+(5, 5, 'GABRIELLE CABALLERO', 'Nabua', 'queen-gabrielle.jpg', '2025-06-20 07:01:01', '2025-06-20 13:26:15'),
+(6, 6, 'PRECIOUS LOVEMARIE', 'Naga City', 'queen-precious-lovemarie.jpg', '2025-06-20 07:01:01', '2025-06-20 13:26:46'),
+(7, 7, 'SAPPHIRE NEIGEL', 'Iriga City', 'queen-sapphire-neigel.jpg', '2025-06-20 07:01:01', '2025-06-20 13:27:09'),
+(8, 8, 'MACY DELA PAZ', 'Legazapi City', 'queen-macy-dela-paz.jpg', '2025-06-20 07:01:01', '2025-06-20 13:27:28'),
+(9, 9, 'JONA', 'Albay', 'queen-jona.jpg', '2025-06-20 07:01:01', '2025-06-20 13:27:44'),
+(10, 1, 'JULIA BARETTA', 'Malabon City', 'mutya-jullia-baretta.jpg', '2025-06-20 07:01:01', '2025-06-20 13:28:18'),
+(11, 2, 'MERIAM DEFENSOR FORTSANTIAGO', 'Tondo, Manila', 'mutya-meriam-defensor-fortsantiago.jpg', '2025-06-20 07:01:01', '2025-06-20 13:28:37'),
+(12, 3, 'SAM GOKU', 'Navotas City', 'mutya-sam-goku.jpg', '2025-06-20 07:01:01', '2025-06-20 13:28:57'),
+(13, 4, 'ODESSA OLIVIA', 'Iriga City', 'mutya-odessa-olivia.jpg', '2025-06-20 07:01:01', '2025-06-20 13:30:21'),
+(14, 5, 'BRYAN NAVA', 'Iriga City', 'mutya-bryan-nava.jpg', '2025-06-20 07:01:01', '2025-06-20 13:30:37'),
+(15, 6, 'TONI DRAGONZAGA', 'Caloocan', 'mutya-toni-dragonzaga.jpg', '2025-06-20 07:01:01', '2025-06-20 13:30:52'),
+(16, 7, 'PRINCESS FIONA', 'Iriga City', 'mutya-princess-fiona.jpg', '2025-06-20 07:01:01', '2025-06-20 13:31:07'),
+(17, 8, 'BARBIENGOT FORTEZA', 'Pandi, Bulacan', 'mutya-barbiengot-forteza.jpg', '2025-06-20 07:01:01', '2025-06-20 13:31:41'),
+(18, 9, 'DIANA KADIRI', 'Malabon City', 'mutya-diana-kadiri.jpg', '2025-06-20 07:01:01', '2025-06-20 13:31:54'),
+(19, 10, 'BEA BUNDA', 'Rosario, Cavite', 'mutya-bea-bunda.jpg', '2025-06-20 07:01:01', '2025-06-20 13:32:06');
 
 -- --------------------------------------------------------
 
@@ -691,12 +696,22 @@ INSERT INTO `titles` (`id`, `event_id`, `rank`, `title`, `created_at`, `updated_
 (6, 6, 1, 'Best in Talent (Mutya)', '2025-06-20 07:53:50', '2025-06-20 07:59:09'),
 (7, 7, 1, 'Best in Long Gown (Queen)', '2025-06-20 07:53:50', '2025-06-20 07:59:20'),
 (8, 8, 1, 'Best in Long Gown (Mutya)', '2025-06-20 07:53:50', '2025-06-20 07:59:25'),
-(9, 11, 1, 'Arriba Plaza QUEEN 2025', '2025-06-20 07:53:50', '2025-06-20 07:59:43'),
-(10, 11, 2, 'Arriba Plaza PRINCESS 2025', '2025-06-20 07:53:50', '2025-06-20 07:59:46'),
-(11, 11, 3, 'Arriba Plaza COUNTESS 2025', '2025-06-20 07:53:50', '2025-06-20 07:59:49'),
-(12, 12, 1, 'Mutyang PANGKALAWAKAN 2025', '2025-06-20 07:53:51', '2025-06-20 07:59:54'),
-(13, 12, 2, 'Mutyang PANDAIGDIG 2025', '2025-06-20 07:53:51', '2025-06-20 07:59:57'),
-(14, 12, 3, 'Mutyang PAMBANSA 2025', '2025-06-20 07:53:51', '2025-06-20 08:00:00');
+(9, 9, 1, 'Finalist 1 (Queen)', '2025-06-20 13:37:00', '2025-06-20 13:40:06'),
+(10, 9, 2, 'Finalist 2 (Queen)', '2025-06-20 13:37:00', '2025-06-20 13:40:09'),
+(11, 9, 3, 'Finalist 3 (Queen)', '2025-06-20 13:37:00', '2025-06-20 13:40:12'),
+(12, 9, 4, 'Finalist 4 (Queen)', '2025-06-20 13:37:00', '2025-06-20 13:40:15'),
+(13, 9, 5, 'Finalist 5 (Queen)', '2025-06-20 13:37:00', '2025-06-20 13:40:18'),
+(14, 10, 1, 'Finalist 1 (Mutya)', '2025-06-20 13:38:44', '2025-06-20 13:40:21'),
+(15, 10, 2, 'Finalist 2 (Mutya)', '2025-06-20 13:38:44', '2025-06-20 13:40:24'),
+(16, 10, 3, 'Finalist 3 (Mutya)', '2025-06-20 13:38:44', '2025-06-20 13:40:27'),
+(17, 10, 4, 'Finalist 4 (Mutya)', '2025-06-20 13:38:44', '2025-06-20 13:40:31'),
+(18, 10, 5, 'Finalist 5 (Mutya)', '2025-06-20 13:38:44', '2025-06-20 13:40:34'),
+(19, 11, 1, 'Arriba Plaza QUEEN 2025', '2025-06-20 07:53:50', '2025-06-20 13:40:39'),
+(20, 11, 2, 'Arriba Plaza PRINCESS 2025', '2025-06-20 07:53:50', '2025-06-20 13:40:42'),
+(21, 11, 3, 'Arriba Plaza COUNTESS 2025', '2025-06-20 07:53:50', '2025-06-20 13:40:47'),
+(22, 12, 1, 'Mutyang PANGKALAWAKAN 2025', '2025-06-20 07:53:51', '2025-06-20 13:40:58'),
+(23, 12, 2, 'Mutyang PANDAIGDIG 2025', '2025-06-20 07:53:51', '2025-06-20 13:41:01'),
+(24, 12, 3, 'Mutyang PAMBANSA 2025', '2025-06-20 07:53:51', '2025-06-20 13:41:04');
 
 --
 -- Indexes for dumped tables
@@ -893,7 +908,7 @@ ALTER TABLE `duos`
 -- AUTO_INCREMENT for table `eliminations`
 --
 ALTER TABLE `eliminations`
-  MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
+  MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
 
 --
 -- AUTO_INCREMENT for table `events`
@@ -959,7 +974,7 @@ ALTER TABLE `technical_event`
 -- AUTO_INCREMENT for table `titles`
 --
 ALTER TABLE `titles`
-  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=229;
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- Constraints for dumped tables
