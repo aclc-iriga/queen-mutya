@@ -446,8 +446,8 @@
                                             <td class="text-right py-2 pr-2" style="width: 60px"><h3 class="ma-0">{{ team.number }}</h3></td>
                                             <td class="py-2">
                                                 <div style="display: flex; align-items: center; gap: 12px; line-height: 1.2;">
-                                                    <v-avatar size="50" transition="none" eager>
-                                                        <v-img :src="`${$store.getters.appURL}/crud/uploads/${team.avatar}`" cover/>
+                                                    <v-avatar size="50">
+                                                        <v-img :src="`${$store.getters.appURL}/crud/uploads/${team.avatar}`" cover transition="none" eager/>
                                                     </v-avatar>
                                                     <div>
                                                         <p class="ma-0 text-subtitle-2 text-uppercase font-weight-bold">{{ team.name }}</p>

@@ -142,6 +142,8 @@
                         <v-img
                             cover
                             :src="`${$store.getters.appURL}/crud/uploads/${team.avatar}`"
+                            transition="none"
+                            eager
                         />
                     </v-avatar>
                 </td>
