@@ -36,7 +36,7 @@
 </head>
 <body>
     <div class="container py-5">
-        <h2 class="fw-bolder">Mr. and Ms. San Agustin (Iriga City) 2023</h2>
+        <h2 class="fw-bolder">Arriba Plaza Queen & Mutyang Pangkalawakan (Iriga City) 2025</h2>
     </div>
     <div>
         <table>

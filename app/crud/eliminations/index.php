@@ -49,15 +49,15 @@ require_once '../../models/Team.php';
                     <div class="col-lg-4 col-md-6 text-center mt-3">
                         <table class="table table-bordered text-center">
                             <thead>
-                            <tr>
+                            <tr class="table-danger">
                                 <th>#</th>
-                                <th><?php print_r($event_name); ?></th>
+                                <th class="text-uppercase text-danger"><?= $event_name ?></th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
                             <?php
-                            $teams = Team::all();
+                            $teams = Team::all(0, 'id, number');
                             foreach ($teams as $team) {
                                 $team_name = $team->getName();
                                 $team_id = $team->getId();

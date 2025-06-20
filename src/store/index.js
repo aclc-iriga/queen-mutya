@@ -12,7 +12,7 @@ export default createStore({
 
     state: {
         app: {
-            title: 'Mr. and Ms. San Agustin 2023',
+            title: 'Arriba Plaza Queen & Mutyang Pangkalawakan 2025',
             org: 'ACLC College Iriga',
             backendDir: 'app',
             sideNav: false
@@ -21,12 +21,15 @@ export default createStore({
             height: 0
         },
         rating: {
-            min: 70,
+            min: 60,
             max: 100
         },
         deduction: {
             min: 0,
             max: 100
+        },
+        websocket: {
+            url: ''
         }
     },
 
@@ -48,12 +51,23 @@ export default createStore({
         // get window height
         windowHeight(state) {
             return state.window.height;
+        },
+
+        // get websocket url
+        websocketUrl(state) {
+            return state.websocket.url;
         }
     },
 
     mutations: {
+        // set window height
         setWindowHeight(state, n) {
             state.window.height = n;
+        },
+
+        // set websocket server url
+        websocketUrl(state, url) {
+            state.websocket.url = url;
         }
     }
 });

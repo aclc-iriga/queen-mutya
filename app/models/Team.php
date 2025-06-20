@@ -113,9 +113,10 @@ class Team extends App
      * Get all teams as array of objects
      *
      * @param int $event_id
+     * @param string  $order_by
      * @return Team[]
      */
-    public static function all($event_id = 0)
+    public static function all($event_id = 0, $order_by = 'number, id')
     {
         // gather team ids of eliminated teams
         $event = null;
@@ -134,7 +135,7 @@ class Team extends App
         if(sizeof($eliminated_team_ids) > 0) {
             $sql .= "WHERE id NOT IN (" . implode(', ', $eliminated_team_ids) . ") ";
         }
-        $sql .= "ORDER BY number, id";
+        $sql .= "ORDER BY " . $order_by;
         $stmt = $team->conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->get_result();

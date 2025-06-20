@@ -82,7 +82,7 @@ function findArrangementId($eventId, $order) {
                                         >
                                             <?php
                                                 $team_ctr = 0;
-                                                foreach (Team::all() as $team) {
+                                                foreach (Team::all(0, 'id, number') as $team) {
                                                     $team_ctr += 1;
                                             ?>
                                                 <option

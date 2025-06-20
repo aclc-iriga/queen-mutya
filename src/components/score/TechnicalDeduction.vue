@@ -1,4 +1,4 @@
-<template>
+<template><div style="display: contents">
     <v-table
         v-if="eventSlug && event"
         density="comfortable"
@@ -37,12 +37,9 @@
                 >
                     {{ team.number }}
                 </td>
-                <td style="width: 72px;">
-                    <v-avatar size="72">
-                        <v-img
-                            cover
-                            :src="`${$store.getters.appURL}/crud/uploads/${team.avatar}`"
-                        />
+                <td class="ps-0 pe-2" style="width: 64px;">
+                    <v-avatar size="64" :style="{ 'opacity' : (coordinates.y == teamIndex && !scoreSheetDisabled) ? '1' : '0.93' }">
+                        <v-img cover :src="`${$store.getters.appURL}/crud/uploads/${team.avatar}`" transition="none" eager/>
                     </v-avatar>
                 </td>
                 <td
@@ -54,9 +51,10 @@
                 </td>
                 <td>
                     <v-text-field
-                        type="number"
+                        type="text"
+                        inputmode="decimal"
+                        class="text-center"
                         variant="outlined"
-                        align="center"
                         justify="center"
                         hide-details
                         single-line
@@ -83,6 +81,17 @@
                         @keydown.enter="moveDown(teamIndex)"
                         @keydown.up.prevent="moveUp(teamIndex)"
                         @focus.passive="updateCoordinates(teamIndex)"
+                        @keydown="e => {
+                            const navKeys = ['Backspace','Tab','ArrowLeft','ArrowRight','Delete']
+                            if (navKeys.includes(e.key)) return;
+                            if (e.ctrlKey || e.metaKey) return;
+                            if (e.key === '.' && e.target.value.includes('.')) { e.preventDefault(); return; }
+                            if (!/[0-9.]/.test(e.key)) { e.preventDefault(); }
+                        }"
+                        @paste="e => {
+                            const text = (e.clipboardData || window.clipboardData).getData('text');
+                            if (!/^[0-9]*\.?[0-9]*$/.test(text)) { e.preventDefault() }
+                        }"
                     />
                 </td>
             </tr>
@@ -148,7 +157,7 @@
             indeterminate
         />
     </div>
-</template>
+</div></template>
 
 
 <script>

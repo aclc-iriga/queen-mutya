@@ -5,8 +5,10 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 0;
 }
 
-input[type=number] {
+input[type=number],
+.v-input.text-center input {
     text-align: center !important;
+    font-size: 1.2rem !important;
 }
 
 .v-input-total-error .v-label {
@@ -81,10 +83,6 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-input[type="number"] {
-    font-size: 1.2rem !important;
-}
-
 /******************* Base Styles for Screensaver *******************/
 
 /* Screensaver */
@@ -132,13 +130,13 @@ html::-webkit-scrollbar {
 /* Swap-colors Animations */
 @keyframes swap-colors {
     0% {
-        background-color: #fff;
+        background-color: #1a1a1a; /* dark gray */
     }
     50% {
-        background-color: #6a6eff;
+        background-color: #2a2a7a; /* dark blue */
     }
     100% {
-        background-color: #fff;
+        background-color: #1a1a1a; /* dark gray */
     }
 }
 
