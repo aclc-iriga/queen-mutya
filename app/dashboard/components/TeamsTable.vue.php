@@ -1,8 +1,9 @@
 <template id="teams-table"><div style="display: contents;">
 <!-------------------------------------------------------->
 
-    <div class="sticky-top bg-white" style="height: 1px;"></div>
-    <table class="table table-hover table-bordered bg-white">
+    <div class="table-responsive">
+        <div class="sticky-top bg-white" style="height: 1px;"></div>
+        <table class="table table-hover table-bordered bg-white">
         <thead class="sticky-top bg-white">
             <!-- thead row 1 -->
             <tr>
@@ -97,6 +98,7 @@
             </tr>
         </tbody>
     </table>
+    </div>
 
 <!-------------------------------------------------------->
 </div></template>

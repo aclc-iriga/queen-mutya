@@ -47,9 +47,15 @@ require_once '../config/database.php';
                 background: inherit;
             }
         }
-        @media (max-width: 768px) {
+        @media (max-width: 767px) {
             #dashboard-container {
                 height: 100%;
+            }
+        }
+        @media (min-width: 768px) {
+            .table-responsive {
+                overflow-x: visible !important;
+                overflow-y: visible !important;
             }
         }
     </style>
