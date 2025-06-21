@@ -334,7 +334,7 @@ foreach ($judges as $judge) {
         <tbody>
         <?php
         foreach($result as $team_key => $team) { ?>
-            <tr<?= empty($judgesWithUnlockedRatings) && !$team['unlocked'] && $team['title'] !== '' ? ' class="table-warning"' : '' ?>>
+            <tr data-team-id="<?= $team['info']['id'] ?>"<?= !$team['unlocked'] && $team['title'] !== '' ? ' class="table-warning"' : '' ?>>
                 <!-- number -->
                 <td rowspan="2" class="pe-3 fw-bold bl bb td-number" align="right" style="cursor: pointer; user-select: none;">
                     <h3 class="team-number m-0">
@@ -380,7 +380,7 @@ foreach ($judges as $judge) {
                 </td>
             </tr>
 
-            <tr<?= empty($judgesWithUnlockedRatings) && !$team['unlocked'] && $team['title'] !== '' ? ' class="table-warning"' : '' ?>>
+            <tr<?= !$team['unlocked'] && $team['title'] !== '' ? ' class="table-warning"' : '' ?>>
                 <!-- average -->
                 <?php for($i=0; $i<sizeof(EVENTS); $i++) { ?>
                     <td colspan="2" class="bb pe-2" align="right"><span class="opacity-75"><?= number_format($team['inputs'][EVENTS[$i]['slug']]['average'], 2) ?></span></td>
@@ -408,7 +408,6 @@ foreach ($judges as $judge) {
                             <?php if($judge->isChairmanOfEvent((array_values($criteria ?? [])[0])->getEvent())) { ?>
                                 * (Chairman)
                             <?php } ?>
-
                         </p>
                     </div>
                 </div>
@@ -424,7 +423,7 @@ foreach ($judges as $judge) {
                 <h2><?= $category_title ?></h2>
                 <h1><b>TOP <?= sizeof($titles) ?></b> in <b class="text-danger">Random</b> Order</h1>
                 <div class="mt-4" style="width: 80%;">
-                    <table class="table table-bordered mt-3">
+                    <table class="table table-bordered mt-3 random-winners">
                         <tbody>
                         <?php
                         foreach($tops_unordered as $team_id) {
@@ -432,7 +431,7 @@ foreach ($judges as $judge) {
                             if (isset($result[$team_key])) {
                                 $team = $result[$team_key];
                                 ?>
-                                <tr>
+                                <tr data-team-id="<?= $team_id ?>">
                                     <!-- number -->
                                     <td class="fw-bold text-center">
                                         <h2 class="m-0 fw-bold">
@@ -467,8 +466,48 @@ foreach ($judges as $judge) {
     </div>
 </div>
 
-</div>
-
+<script src="../../crud/dist/jquery-3.6.4/jquery-3.6.4.min.js"></script>
 <script src="../../crud/dist/bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(function() {
+        const tableResult  = $('table.result');
+        const tableWinners = $('table.random-winners');
+
+        tableResult.find('tbody .td-number').on('dblclick', function() {
+            const tr1 = $(this).parent();
+            const tr2 = tr1.next();
+            if(tr1.hasClass('table-warning')) {
+                tr1.removeClass('table-warning');
+                tr2.removeClass('table-warning');
+                tableWinners.find(`tbody tr[data-team-id="${tr1.attr('data-team-id')}"]`).remove();
+            }
+            else {
+                tr1.addClass('table-warning');
+                tr2.addClass('table-warning');
+                const trWinner = `
+                    <tr data-team-id="${tr1.attr('data-team-id')}">
+                        <td class="fw-bold text-center">
+                            <h2 class="m-0 fw-bold">
+                                ${tr1.find('.team-number').text()}
+                            </h2>
+                        </td>
+                        <td style="width: 88px;">
+                            <img
+                                src="${tr1.find('.team-avatar').attr('src')}"
+                                alt="${tr1.find('.team-number').text()}"
+                                style="width: 100%; border-radius: 100%"
+                            >
+                        </td>
+                        <td>
+                            <h6 class="text-uppercase m-0">${tr1.find('.team-name').text()}</h6>
+                            <small class="m-0">${tr1.find('.team-location').text()}</small>
+                        </td>
+                    </tr>
+                `;
+                tableWinners.find('tbody').append(trWinner);
+            }
+        });
+    });
+</script>
 </body>
 </html>
